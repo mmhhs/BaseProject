@@ -1,0 +1,625 @@
+package com.base.feima.baseproject.tool;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Build.VERSION;
+import android.os.Environment;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
+import com.base.feima.baseproject.R;
+import com.base.feima.baseproject.tool.popupwindow.PopupwindowTool;
+import com.base.feima.baseproject.tool.popupwindow.PopupwindowTool.OnSureClickListener;
+import com.base.feima.baseproject.util.BaseConstant;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.math.BigDecimal;
+
+public class PublicTools{
+	public static String tag = "PublicTools";
+	/**
+	 * 开发模式设置
+	 */
+	public static boolean DEVELOPER_MODE = false;
+	
+	/**
+	 * 电话对话框
+	 * @param context
+	 */
+	public static void showPhoneDialog(final Context context,final String tel){
+		Dialog alertDialog = new AlertDialog.Builder(context)
+		.setTitle(context.getResources().getString(R.string.dialog_item0))
+		.setMessage(context.getResources().getString(R.string.dialog_item4))
+		.setNegativeButton(context.getResources().getString(R.string.dialog_item2),
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(
+							DialogInterface dialog,
+							int which) {
+						// TODO Auto-generated method
+						
+					}
+				})
+		.setPositiveButton(context.getResources().getString(R.string.dialog_item1),
+		new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(
+					DialogInterface dialog,
+					int which) {
+				// TODO Auto-generated method
+				
+				Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+tel));
+				context.startActivity(intent);
+			}
+		}).
+
+		create();
+		alertDialog.show();
+	}
+	
+	/**
+	 * 电话点击事件
+	 * @author Administrator
+	 *
+	 */
+	public static class PhoneOnClickListener implements OnClickListener  
+	{  
+		public void onClick(View v) {  
+		// TODO Auto-generated method stub  
+			try {
+				showPhoneDialog(v.getContext(),v.getTag().toString());
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+		}  
+	}  
+	
+	/**
+	 * 显示未登录提示
+	 * @param activity
+	 * @param view
+	 */
+	public static void showLoginPopupwindow(final Activity activity,View view){
+		PopupwindowTool popupwindowTool = PopupwindowTool.getInstancePopupwindowTool();
+		popupwindowTool.showSureWindow(activity, view, activity.getResources().getString(R.string.dialog_item0), activity.getResources().getString(R.string.dialog_item5),
+				true, true, false, R.style.base_anim_alpha);
+		popupwindowTool.setOnSureClickListener(new OnSureClickListener(){
+
+			@Override
+			public void onClick(int position) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	}
+		
+		
+	
+	/**
+	 * 开启全屏设置
+	 * @param activity
+	 */
+	public static void startFullScreen(Activity activity){
+		activity.getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
+	              WindowManager.LayoutParams. FLAG_FULLSCREEN);//全屏
+	}
+	
+	/**
+	 * 取消全屏设置
+	 * @param activity
+	 */
+	public static void quitFullScreen(Activity activity){
+	      final WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
+	      attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	      activity.getWindow().setAttributes(attrs);
+	      activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+	}
+
+	/**
+	 * 判断网络返回结果
+	 * @param result
+	 * @return
+	 */
+	public static boolean judgeResult(Context context, String result){
+		String[] codeArray = context.getResources().getStringArray(R.array.base_error_key);
+		if(result.equals(codeArray[0])||result.equals(codeArray[1])){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * 判断网络返回结果
+	 * @param result
+	 * @return
+	 */
+	public static String judgeResult2(Context context, String result){
+		String msg = "";
+		try {
+			String[] codeArray = context.getResources().getStringArray(R.array.base_error_key);
+			String[] errorArray = context.getResources().getStringArray(R.array.base_error_vaule);
+			for(int i=0;i<codeArray.length;i++){
+				if(result.equals(codeArray[i])){
+					msg = errorArray[i];
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally{
+			return msg;
+		}
+		
+		
+	}	
+	
+	/**
+	 * 隐藏键盘
+	 * @param activity
+	 */
+	public static void closeKeyBoard(Activity activity){
+		
+		try{			
+			((InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE))
+			.hideSoftInputFromWindow(activity.getCurrentFocus()
+					.getWindowToken(),
+					InputMethodManager.HIDE_NOT_ALWAYS); 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 保留一位小数
+	 * @param num
+	 * @return
+	 */
+	public static double storeOnePosition(double num){
+		double result = 3.0;
+		try{
+			BigDecimal bd = new BigDecimal(num);
+			bd.setScale(1,BigDecimal.ROUND_HALF_DOWN);
+			result = bd.doubleValue();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			return result;
+		}
+		
+	}
+	
+	/**
+	 * 保留2位小数
+	 * @param num
+	 * @return
+	 */
+	public static String storeTwoPosition(double num){
+		String result = "0.01";
+		try{
+			java.text.DecimalFormat   df   =new   java.text.DecimalFormat("#0.00");
+			result = df.format(num);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			return result;
+		}
+		
+	}
+	
+	/**
+	 * double转字符串
+	 * @param num
+	 * @return
+	 */
+	public static String doubleToString(double num){
+		String result = "";
+		try{
+			BigDecimal bd = new BigDecimal(num);
+			bd.setScale(0,BigDecimal.ROUND_HALF_DOWN);
+			result = bd.toString();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			return result;
+		}
+		
+	}
+	
+	/**
+	 * 保留一位小数
+	 * @param num
+	 * @return
+	 */
+	public static float formatApprise(String num){
+		float result = 3.0f;
+		try{
+			double nums = Double.parseDouble(num);
+			BigDecimal bd = new BigDecimal(nums);
+			bd.setScale(1,BigDecimal.ROUND_HALF_DOWN);
+			result = bd.floatValue();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			return result;
+		}
+		
+	}
+	
+	/**
+	 * 获取状态栏高度
+	 * @param activity
+	 * @return
+	 */
+	public static int getStatusBarHeight(Activity activity){
+		Rect frame = new Rect();
+		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+		int statusBarHeight = frame.top;
+		return statusBarHeight;
+	}
+	
+	/**
+	 * 获取标题栏高度
+	 * @param activity
+	 * @return
+	 */
+	public static int getTitleBarHeight(Activity activity){
+		Rect frame = new Rect();
+		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+		int statusBarHeight = frame.top;		
+		int contentTop = activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();  
+		//statusBarHeight是上面所求的状态栏的高度  
+		int titleBarHeight = contentTop - statusBarHeight;
+		return titleBarHeight;
+	}
+	
+	/**
+	 * 获取屏幕宽度px
+	 * @param activity
+	 * @return
+	 */
+	public static int getScreenWidth(Activity activity){		
+		int screenWidth = activity.getResources().getDisplayMetrics().widthPixels;
+		return screenWidth;
+	}
+	
+	/**
+	 * 获取屏幕高度px
+	 * @param activity
+	 * @return
+	 */
+	public static int getScreenHeight(Activity activity){		
+		int screenHeight = activity.getResources().getDisplayMetrics().heightPixels;
+		return screenHeight;
+	}
+	
+
+//	public static void WriteTxtFile(String strcontent,String strFilePath)
+//    {
+//      //每次写入时，都换行写
+//      String strContent=strcontent+"\n";
+//      try {
+//           File file = new File(strFilePath);
+//           if (!file.exists()) {
+//            Log.d("TestFile", "Create the file:" + strFilePath);
+//            file.createNewFile();
+//           }
+//           RandomAccessFile raf = new RandomAccessFile(file, "rw");
+//           raf.seek(file.length());
+//           raf.write(strContent.getBytes());
+//           raf.close();
+//           Log.e("TestFile", "success on write File.");
+//      } catch (Exception e) {
+//           Log.e("TestFile", "Error on write File.");
+//          }
+//    }
+//	
+	public static void writeFileSdcard(String message, String fileName) { 
+		 
+        try { 
+        	String messages=message+"\n";
+            // FileOutputStream fout = openFileOutput(fileName, MODE_PRIVATE); 
+        	 File file = new File(fileName);
+             if (!file.exists()) {
+              Log.d("TestFile", "Create the file:" + fileName);
+              file.createNewFile();
+             }
+            FileOutputStream fout = new FileOutputStream(fileName); 
+ 
+            byte[] bytes = messages.getBytes(); 
+ 
+            fout.write(bytes); 
+ 
+            fout.close(); 
+            Log.e("TestFile", "success on write File.");
+        } 
+ 
+        catch (Exception e) { 
+        	Log.e("TestFile", "Error on write File.");
+            e.printStackTrace(); 
+ 
+        }  
+    } 
+
+	/**
+	 * 计算展示图片高度
+	 * @param width
+	 * @param height
+	 * @param targetWidth
+	 * @return
+	 */
+	public static int computeHight(String width,String height,int targetWidth,float rate){
+		int targetHeight = 0;
+		try {
+			float w = Float.parseFloat(width);
+			float h = Float.parseFloat(height);
+			if(w>h){
+				targetHeight = (int) (targetWidth*rate);
+			}else if(width==height){
+				targetHeight = (int) (h*targetWidth/w);
+			}else{
+				targetHeight = (int) (targetWidth/rate);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally{
+			return targetHeight;
+		}
+		
+	}
+	
+	/**
+	 * 判断百度地图是否定位成功
+	 * @param longtitude
+	 * @return
+	 */
+	public static boolean judgeLocation(double longtitude){
+		boolean result = false;
+		try {
+			String lon = String.valueOf(longtitude);
+			if(lon.contains("e")||lon.contains("E")){
+				result=false;
+			}else{
+				result = true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally{
+			return result;
+		}
+	}
+	
+//	/**
+//	 * 百度地图计算距离--若要使用，需要导入百度地图相关jar包
+//	 * @param context
+//	 * @param targetLat
+//	 * @param targetLon
+//	 * @return
+//	 */
+//	public static String caculateDistance(Context context,String targetLat,String targetLon){
+//		String result = "0.01";
+//		try {
+//			//我的纬度
+//			double latF = Double.parseDouble(SharedUtil.getLat(context));
+//			//我的经度
+//			double lonF = Double.parseDouble(SharedUtil.getLng(context));
+//			double lat = Double.parseDouble(targetLat);
+//			double lon = Double.parseDouble(targetLon);
+//			LatLng p1 = new LatLng(latF,lonF);
+//			LatLng p2 = new LatLng(lat,lon);
+//			double distance = DistanceUtil.getDistance(p1, p2);
+//			result = storeTwoPosition(distance/1000);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}finally{
+//			return ""+result;
+//		}
+//		
+//	}
+	
+	/**
+	 * 打印日志
+	 * @param tag
+	 * @param value
+	 */
+	public static void addLog(String tag,String value){
+		try {
+			if(DEVELOPER_MODE){
+				Log.i(tag, value);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 弹出toast
+	 * @param context
+	 * @param value
+	 */
+	public static void addToast(Context context,String value){
+		try {			
+			Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 清除临时图片
+	 */
+	public static void deleteTampFile() {
+		try {
+			
+			File file = new File(BaseConstant.IMAGETAMPPATH);
+			delete(file);			
+			file = new File(BaseConstant.IMAGETAMPPATH);
+			if(!file.exists()){
+				file.mkdirs();
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * 清除缓存图片
+	 */
+	public static void deleteSaveFile() {
+		try {
+			File file = new File(BaseConstant.IMAGESAVEPATH);
+			delete(file);
+			file = new File(BaseConstant.IMAGESAVEPATH);
+			if(!file.exists()){
+				file.mkdirs();
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * 清除SD卡缓存图片
+	 */
+	public static void clearDiscCache() {
+		try {
+			ImageLoader imageLoader = ImageLoader.getInstance();
+			imageLoader.clearDiscCache();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void delete(File file) {
+		if (file.isFile()) {
+			File sdCard=Environment.getExternalStorageDirectory() ;			
+			File to=new File(sdCard,"to.jpg") ;
+			file.renameTo(to) ;
+			file.delete();
+			return;
+		}
+		if (file.isDirectory()) {
+			File[] childFiles = file.listFiles();
+			if (childFiles == null || childFiles.length == 0) {
+				File sdCard=Environment.getExternalStorageDirectory() ;			
+				File to=new File(sdCard,"to.jpg") ;
+				file.renameTo(to) ;
+				file.delete();
+				return;
+			}
+			for (int i = 0; i < childFiles.length; i++) {
+				delete(childFiles[i]);
+			}
+			file.delete();
+		}
+	}
+	
+	/**
+	 * 获取系统版本
+	 * @return
+	 */
+	public static int getSystemVersion(){
+		int sysVersion = VERSION.SDK_INT;  
+		return sysVersion;
+	}
+	
+	
+	
+//	/**
+//	 * 关闭上拉加载和下拉刷新效果
+//	 * @param pullToRefreshView
+//	 */
+//	public static void stopRefresh(PullToRefreshView pullToRefreshView) {
+//		try {
+//			if (pullToRefreshView!=null) {
+//				pullToRefreshView.onHeaderRefreshComplete();
+//				pullToRefreshView.onFooterRefreshComplete();
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	/**
+	 * 获取头像正确路径
+	 * @return
+	 */
+	public static String judgeImageUrl(String head) {
+		String resultString = "";
+		try {
+			if (head.startsWith("http")) {
+				resultString = head;
+			} else {
+				resultString = BaseConstant.SERVICE_HOST_IP_LAN_IMG+head;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			return resultString;
+		}
+	}
+	
+	/**
+	 * 获取版本号
+	 * @return 当前应用的版本号
+	 */
+	public static int getVersionCode(Context context) {
+		int code = 1;
+	    try {
+	        PackageManager manager = context.getPackageManager();
+	        PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+	        code = info.versionCode;	       
+	    } catch (Exception e) {
+	        e.printStackTrace();	       
+	    }
+	    return code;
+	}
+	
+	/**
+	 * 获取版本名称
+	 * @return 当前应用的版本名称
+	 */
+	public static String getVersionName(Context context) {
+		String name = "";
+	    try {
+	        PackageManager manager = context.getPackageManager();
+	        PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+	        name = info.versionName;	       
+	    } catch (Exception e) {
+	        e.printStackTrace();	       
+	    }
+	    return name;
+	}
+
+}
