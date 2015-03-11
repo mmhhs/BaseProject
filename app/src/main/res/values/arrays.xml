@@ -17,7 +17,7 @@
         <item>女</item>        
     </string-array>
     
-    <!-- ptr -->
+    <!-- base_scrain_ -->
     <string-array name="akta">
         <item>22,0,0,30,</item>
         <item>22,0,30,0,</item>

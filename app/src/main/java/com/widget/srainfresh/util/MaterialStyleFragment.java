@@ -30,7 +30,7 @@ public class MaterialStyleFragment extends BaseFragment {
     {
     	if (rootView == null)
         {
-          rootView = inflater.inflate(R.layout.fragment_materail_style, null);
+          rootView = inflater.inflate(R.layout.base_scrain_materail_test, null);
           final ImageView imageView = (ImageView) rootView.findViewById(R.id.material_style_image_view);
           final ImageLoader imageLoader = ImageLoader.getInstance();
 

@@ -99,11 +99,11 @@ public class RentalsSunDrawable extends Drawable implements Animatable {
     }
 
     private void createBitmaps() {
-        mSky = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.sky);
+        mSky = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.base_scrain_sky);
         mSky = Bitmap.createScaledBitmap(mSky, mScreenWidth, mSkyHeight, true);
         mTown = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.buildings);
         mTown = Bitmap.createScaledBitmap(mTown, mScreenWidth, (int) (mScreenWidth * TOWN_RATIO), true);
-        mSun = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.sun);
+        mSun = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.base_scrain_sun);
         mSun = Bitmap.createScaledBitmap(mSun, mSunSize, mSunSize, true);
     }
 
