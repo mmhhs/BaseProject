@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.base.feima.baseproject.R;
-import com.base.feima.baseproject.tool.PublicTools;
 import com.widget.niftynotification.lib.Effects;
 import com.widget.niftynotification.lib.NiftyNotificationView;
 import com.widget.pulltorefresh.SwipeRefreshView;
@@ -30,7 +29,7 @@ public class MenuFragment extends Fragment
     {
     	if (rootView == null)
         {
-          rootView = inflater.inflate(R.layout.sample_swipe_refresh_view, null);
+          rootView = inflater.inflate(R.layout.test_swipe_refresh_view, null);
           initView(rootView);
           initData();
         }

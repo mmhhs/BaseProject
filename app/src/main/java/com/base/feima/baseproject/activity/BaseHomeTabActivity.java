@@ -13,6 +13,7 @@ import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.base.BaseFragmentActivity;
 import com.base.feima.baseproject.fragment.MenuFragment;
 
+import com.base.feima.baseproject.fragment.TestFragment;
 import com.widget.srainfresh.util.MaterialStyleFragment;
 
 
@@ -21,7 +22,7 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
 	private RadioGroup mTabRg;
 
 	private final Class[] fragments = { MaterialStyleFragment.class, MenuFragment.class,
-			MenuFragment.class, MenuFragment.class };
+			TestFragment.class, MenuFragment.class };
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {

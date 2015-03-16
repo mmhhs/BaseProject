@@ -24,7 +24,7 @@ import com.base.feima.baseproject.R;
  *         Licensed under the Creative Commons Attribution 3.0 license see:
  *         http://creativecommons.org/licenses/by/3.0/
  */
-public class ProgressWheel extends View {
+public class ProgressWheel4 extends View {
 
 	// Sizes (with defaults)
 	private int layout_height = 0;
@@ -95,10 +95,10 @@ public class ProgressWheel extends View {
 	 * @param context
 	 * @param attrs
 	 */
-	public ProgressWheel(Context context, AttributeSet attrs) {
+	public ProgressWheel4(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
-		parseAttributes(context.obtainStyledAttributes(attrs, R.styleable.ProgressWheel));
+		parseAttributes(context.obtainStyledAttributes(attrs, R.styleable.ProgressWheel4));
 	}
 
 	// ----------------------------------
@@ -184,33 +184,33 @@ public class ProgressWheel extends View {
 	 *            the attributes to parse
 	 */
 	private void parseAttributes(TypedArray a) {
-		barWidth = (int) a.getDimension(R.styleable.ProgressWheel_barWidth, barWidth);
+		barWidth = (int) a.getDimension(R.styleable.ProgressWheel4_barWidth, barWidth);
 
-		rimWidth = (int) a.getDimension(R.styleable.ProgressWheel_rimWidth, rimWidth);
+		rimWidth = (int) a.getDimension(R.styleable.ProgressWheel4_rimWidth, rimWidth);
 
-		spinSpeed = (int) a.getDimension(R.styleable.ProgressWheel_spinSpeed, spinSpeed);
+		spinSpeed = (int) a.getDimension(R.styleable.ProgressWheel4_spinSpeed, spinSpeed);
 
-		delayMillis = (int) a.getInteger(R.styleable.ProgressWheel_delayMillis, delayMillis);
+		delayMillis = (int) a.getInteger(R.styleable.ProgressWheel4_delayMillis, delayMillis);
 		if (delayMillis < 0) {
 			delayMillis = 0;
 		}
 
-		barColor = a.getColor(R.styleable.ProgressWheel_barColor, barColor);
+		barColor = a.getColor(R.styleable.ProgressWheel4_barColor, barColor);
 
-		barLength = (int) a.getDimension(R.styleable.ProgressWheel_barLength, barLength);
+		barLength = (int) a.getDimension(R.styleable.ProgressWheel4_barLength, barLength);
 
-		textSize = (int) a.getDimension(R.styleable.ProgressWheel_textSize, textSize);
+		textSize = (int) a.getDimension(R.styleable.ProgressWheel4_textSize, textSize);
 
-		textColor = (int) a.getColor(R.styleable.ProgressWheel_textColor, textColor);
+		textColor = (int) a.getColor(R.styleable.ProgressWheel4_textColor, textColor);
 
 		// if the text is empty , so ignore it
-		if (a.hasValue(R.styleable.ProgressWheel_text)) {
-			setText(a.getString(R.styleable.ProgressWheel_text));
+		if (a.hasValue(R.styleable.ProgressWheel4_text)) {
+			setText(a.getString(R.styleable.ProgressWheel4_text));
 		}
 
-		rimColor = (int) a.getColor(R.styleable.ProgressWheel_rimColor, rimColor);
+		rimColor = (int) a.getColor(R.styleable.ProgressWheel4_rimColor, rimColor);
 
-		circleColor = (int) a.getColor(R.styleable.ProgressWheel_circleColor, circleColor);
+		circleColor = (int) a.getColor(R.styleable.ProgressWheel4_circleColor, circleColor);
 
 		// Recycle
 		a.recycle();

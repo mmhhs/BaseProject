@@ -95,7 +95,7 @@ public class SwipeRefreshView extends SwipeRefreshLayout implements AbsListView.
                     int totalItemCount = recyclerView.getLayoutManager().getItemCount();
                     //lastVisibleItem >= totalItemCount - 4 表示剩下4个item自动加载
                     // dy>0 表示向下滑动
-                    if (lastVisibleItem >= totalItemCount - 4 && dy > 0) {
+                    if (lastVisibleItem >= totalItemCount -1 && dy > 0) {
                         isLastRow = true;
                         loadData();
                     }else {

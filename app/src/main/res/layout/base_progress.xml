@@ -20,7 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminateDrawable="@drawable/base_progress_rotate_loading_360"
-            android:indeterminateDuration="1800" />
+            android:indeterminateDuration="1800"
+            android:indeterminate="false"
+             />
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -46,7 +48,7 @@
             android:layout_marginRight="20dp"
             android:text="start" />
 
-        <com.widget.spin.ProgressWheel
+        <com.widget.spin.ProgressWheel4
             xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
             android:id="@+id/progress_bar_two"
             android:layout_width="80dp"
@@ -60,7 +62,7 @@
             ProgressWheel:textColor="#222222"
             ProgressWheel:textSize="14sp" />
 
-        <com.widget.spin.ProgressWheel
+        <com.widget.spin.ProgressWheel4
             xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
             android:id="@+id/progress_bar_one"
             android:layout_width="80dp"

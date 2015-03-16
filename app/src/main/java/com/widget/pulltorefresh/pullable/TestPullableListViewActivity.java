@@ -23,7 +23,7 @@ public class TestPullableListViewActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.base_pullable_test_activity_listview);
+		setContentView(R.layout.test_base_pullable_activity_listview);
 		((PullToRefreshLayout) findViewById(R.id.refresh_view))
 				.setOnRefreshListener(new TestListener());
 		listView = (ListView) findViewById(R.id.content_view);
