@@ -1,4 +1,4 @@
-package com.widget.test;
+package com.widget.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TestPullableListViewActivity extends Activity
+public class SamplePullableListViewActivity extends Activity
 {
 	ListView listView;
 
@@ -25,7 +25,7 @@ public class TestPullableListViewActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.test_base_pullable_activity_listview);
+		setContentView(R.layout.sample_base_pullable_activity_listview);
 		((PullToRefreshLayout) findViewById(R.id.refresh_view))
 				.setOnRefreshListener(new TestListener());
 		listView = (ListView) findViewById(R.id.content_view);
@@ -52,7 +52,7 @@ public class TestPullableListViewActivity extends Activity
 					int position, long id)
 			{
 				Toast.makeText(
-						TestPullableListViewActivity.this,
+						SamplePullableListViewActivity.this,
 						"LongClick on "
 								+ parent.getAdapter().getItemId(position),
 						Toast.LENGTH_SHORT).show();
@@ -66,7 +66,7 @@ public class TestPullableListViewActivity extends Activity
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id)
 			{
-				Toast.makeText(TestPullableListViewActivity.this,
+				Toast.makeText(SamplePullableListViewActivity.this,
 						" Click on " + parent.getAdapter().getItemId(position),
 						Toast.LENGTH_SHORT).show();
 			}

@@ -1,4 +1,4 @@
-package com.widget.test;
+package com.widget.sample;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,10 +14,10 @@ import com.widget.ultimate.UltimateViewAdapter;
 import java.util.List;
 
 
-public class TestUltimateAdapter extends UltimateViewAdapter {
+public class SampleUltimateAdapter extends UltimateViewAdapter {
     private List<String> stringList;
 
-    public TestUltimateAdapter(List<String> stringList) {
+    public SampleUltimateAdapter(List<String> stringList) {
         this.stringList = stringList;
     }
 
@@ -40,7 +40,7 @@ public class TestUltimateAdapter extends UltimateViewAdapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.test_ultimate_adapter, parent, false);
+                .inflate(R.layout.sample_ultimate_adapter, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }

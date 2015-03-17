@@ -1,4 +1,4 @@
-package com.widget.test;
+package com.widget.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import com.base.feima.baseproject.R;
 import com.widget.niftynotification.lib.Effects;
 import com.widget.niftynotification.lib.NiftyNotificationView;
 
-public class TestNiftyNotificationActivity extends Activity {
+public class SampleNiftyNotificationActivity extends Activity {
     private Effects effect = Effects.flip;
 
     @Override

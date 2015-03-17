@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.widget.test.TestUltimateActivity"
+        <activity android:name="com.widget.sample.SampleUltimateActivity"
             ></activity>
     </application>
 

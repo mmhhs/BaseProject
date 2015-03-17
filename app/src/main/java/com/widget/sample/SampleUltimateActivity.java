@@ -1,4 +1,4 @@
-package com.widget.test;
+package com.widget.sample;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,10 +47,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TestUltimateActivity extends ActionBarActivity implements ActionMode.Callback {
+public class SampleUltimateActivity extends ActionBarActivity implements ActionMode.Callback {
 
     UltimateRecyclerView ultimateRecyclerView;
-    TestUltimateAdapter simpleRecyclerViewAdapter = null;
+    SampleUltimateAdapter simpleRecyclerViewAdapter = null;
     LinearLayoutManager linearLayoutManager;
     int moreNum = 100;
     private ActionMode actionMode;
@@ -62,7 +62,7 @@ public class TestUltimateActivity extends ActionBarActivity implements ActionMod
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_ultimate);
+        setContentView(R.layout.sample_ultimate);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -72,7 +72,7 @@ public class TestUltimateActivity extends ActionBarActivity implements ActionMod
         ultimateRecyclerView = (UltimateRecyclerView) findViewById(R.id.ultimate_recycler_view);
         ultimateRecyclerView.setHasFixedSize(false);
         List<String> stringList = new ArrayList<>();
-        simpleRecyclerViewAdapter = new TestUltimateAdapter(stringList);
+        simpleRecyclerViewAdapter = new SampleUltimateAdapter(stringList);
 
         stringList.add("111");
         stringList.add("aaa");

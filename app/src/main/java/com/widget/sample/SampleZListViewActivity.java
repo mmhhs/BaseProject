@@ -1,4 +1,4 @@
-package com.widget.test;
+package com.widget.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import zrc.widget.SimpleHeader;
 import zrc.widget.ZrcListView;
 import zrc.widget.ZrcListView.OnStartListener;
 
-public class TestZListViewActivity extends Activity {
+public class SampleZListViewActivity extends Activity {
     private ZrcListView listView;
     private Handler handler;
     private ArrayList<String> msgs;

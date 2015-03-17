@@ -29,7 +29,7 @@ public class MenuFragment extends Fragment
     {
     	if (rootView == null)
         {
-          rootView = inflater.inflate(R.layout.test_swipe_refresh_view, null);
+          rootView = inflater.inflate(R.layout.sample_swipe_refresh_view, null);
           initView(rootView);
           initData();
         }
@@ -187,17 +187,17 @@ public class MenuFragment extends Fragment
             switch (viewtype) {
                 case Bean.X_TYPE:
                     v = LayoutInflater.from(parent.getContext()).inflate(
-                            R.layout.test, null);
+                            R.layout.sample, null);
                     holer = new TextHoler(v);
                     break;
                 case Bean.Y_TYPE:
                     v = LayoutInflater.from(parent.getContext()).inflate(
-                            R.layout.test, null);
+                            R.layout.sample, null);
                     holer = new ButtonHolder(v);
                     break;
                 case Bean.Z_TYPE:
                     v = LayoutInflater.from(parent.getContext()).inflate(
-                            R.layout.test, null);
+                            R.layout.sample, null);
                     holer = new ImageHoler(v);
                     break;
             }

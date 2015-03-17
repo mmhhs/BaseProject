@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.base.feima.baseproject.R;
 import com.widget.niftynotification.lib.Effects;
-import com.widget.test.TestUltimateActivity;
+import com.widget.sample.SampleUltimateActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,7 +21,7 @@ public class TestFragment extends Fragment{
     {
         if (rootView == null)
         {
-            rootView = inflater.inflate(R.layout.test, null);
+            rootView = inflater.inflate(R.layout.sample, null);
             initView(rootView);
             initData();
         }
@@ -52,7 +52,7 @@ public class TestFragment extends Fragment{
 
     @OnClick(R.id.imagegg)
     public void setText() {
-        Intent intent = new Intent(getActivity(), TestUltimateActivity.class);
+        Intent intent = new Intent(getActivity(), SampleUltimateActivity.class);
         startActivity(intent);
 
     }

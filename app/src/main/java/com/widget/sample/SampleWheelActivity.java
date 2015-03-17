@@ -1,4 +1,4 @@
-package com.widget.test;
+package com.widget.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import com.widget.wheel.WheelMain;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class TestWheelActivity extends Activity {
+public class SampleWheelActivity extends Activity {
 	WheelMain wheelMain;
 	EditText txttime;
 	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

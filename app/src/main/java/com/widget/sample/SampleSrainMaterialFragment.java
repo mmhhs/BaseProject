@@ -1,4 +1,4 @@
-package com.widget.test;
+package com.widget.sample;
 
 import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.base.BaseFragment;
@@ -18,7 +18,7 @@ import android.widget.ImageView;
 
 import com.widget.srainfresh.header.RentalsSunHeaderView;
 
-public class TestSrainMaterialFragment extends BaseFragment {
+public class SampleSrainMaterialFragment extends BaseFragment {
 
     private String mUrl = "http://img5.duitang.com/uploads/blog/201407/17/20140717113117_mUssJ.thumb.jpeg";
     private long mStartLoadingTime = -1;
@@ -30,7 +30,7 @@ public class TestSrainMaterialFragment extends BaseFragment {
     {
     	if (rootView == null)
         {
-          rootView = inflater.inflate(R.layout.test_base_scrain_materail, null);
+          rootView = inflater.inflate(R.layout.sample_base_scrain_materail, null);
           final ImageView imageView = (ImageView) rootView.findViewById(R.id.material_style_image_view);
           final ImageLoader imageLoader = ImageLoader.getInstance();
 
