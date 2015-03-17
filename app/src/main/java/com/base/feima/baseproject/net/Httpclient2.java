@@ -1,6 +1,7 @@
 package com.base.feima.baseproject.net;
 
 import com.base.feima.baseproject.tool.PublicTools;
+import com.base.feima.baseproject.util.LogUtil;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -62,7 +63,7 @@ public class Httpclient2 {
         }
         //将字节数组转换成为字符串
         String result = bytesToString(dataByte);
-        PublicTools.addLog(TAG, "" + url + "= " + result);
+        LogUtil.d("" + url + "= " + result);
         return result;
     }
      
@@ -87,7 +88,7 @@ public class Httpclient2 {
         }
         //将字节数组转换成为字符串
         String result = bytesToString(dataByte);
-        PublicTools.addLog(TAG, "" + url + "= " + result);
+        LogUtil.d("" + url + "= " + result);
         return result;
     }
      
@@ -116,7 +117,7 @@ public class Httpclient2 {
         }
         //将字节数组转换成为字符串
         String result = bytesToString(dataByte);
-        PublicTools.addLog(TAG, "" + url + "= " + result);
+        LogUtil.d("" + url + "= " + result);
         return result;
     }
      
@@ -249,7 +250,7 @@ public class Httpclient2 {
 			}
 		}
 		post.abort();
-		PublicTools.addLog(TAG, "" + url + "= " + sb.toString());
+		LogUtil.d("" + url + "= " + sb.toString());
 		return sb.toString();
 	}
 	/**
@@ -303,7 +304,7 @@ public class Httpclient2 {
 			}
 		}
 		post.abort();
-		PublicTools.addLog(TAG, "" + url + "= " + sb.toString());
+		LogUtil.d("" + url + "= " + sb.toString());
 		return sb.toString();
 	}
 
@@ -357,7 +358,7 @@ public class Httpclient2 {
 			}
 		}
 		post.abort();
-		PublicTools.addLog(TAG, "" + url + "= " + sb.toString());
+		LogUtil.d("" + url + "= " + sb.toString());
 		return sb.toString();
 	}
 	/**
@@ -411,7 +412,7 @@ public class Httpclient2 {
 			}
 		}
 		post.abort();
-		PublicTools.addLog(TAG, "" + url + "= " + sb.toString());
+		LogUtil.d("" + url + "= " + sb.toString());
 		return sb.toString();
 	}
 	
