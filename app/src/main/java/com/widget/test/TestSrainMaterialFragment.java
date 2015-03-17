@@ -1,4 +1,4 @@
-package com.widget.srainfresh.util;
+package com.widget.test;
 
 import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.base.BaseFragment;
@@ -18,7 +18,7 @@ import android.widget.ImageView;
 
 import com.widget.srainfresh.header.RentalsSunHeaderView;
 
-public class MaterialStyleFragment extends BaseFragment {
+public class TestSrainMaterialFragment extends BaseFragment {
 
     private String mUrl = "http://img5.duitang.com/uploads/blog/201407/17/20140717113117_mUssJ.thumb.jpeg";
     private long mStartLoadingTime = -1;

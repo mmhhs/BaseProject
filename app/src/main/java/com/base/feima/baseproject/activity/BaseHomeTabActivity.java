@@ -14,14 +14,14 @@ import com.base.feima.baseproject.base.BaseFragmentActivity;
 import com.base.feima.baseproject.fragment.MenuFragment;
 
 import com.base.feima.baseproject.fragment.TestFragment;
-import com.widget.srainfresh.util.MaterialStyleFragment;
+import com.widget.test.TestSrainMaterialFragment;
 
 
 public class BaseHomeTabActivity extends BaseFragmentActivity{
 	private FragmentTabHost mTabHost;
 	private RadioGroup mTabRg;
 
-	private final Class[] fragments = { MaterialStyleFragment.class, MenuFragment.class,
+	private final Class[] fragments = { TestSrainMaterialFragment.class, MenuFragment.class,
 			TestFragment.class, MenuFragment.class };
 	
     @Override

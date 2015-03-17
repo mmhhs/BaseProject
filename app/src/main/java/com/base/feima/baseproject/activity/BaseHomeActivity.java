@@ -15,7 +15,7 @@ import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.base.BaseFragmentActivity;
 import com.base.feima.baseproject.fragment.MenuFragment;
 
-import com.widget.srainfresh.util.MaterialStyleFragment;
+import com.widget.test.TestSrainMaterialFragment;
 
 
 public class BaseHomeActivity extends BaseFragmentActivity implements OnCheckedChangeListener{
@@ -70,7 +70,7 @@ public class BaseHomeActivity extends BaseFragmentActivity implements OnCheckedC
                  return   new MenuFragment();
              case  R.id.base_ui_home_radio1:
             	 
-                 return   new MaterialStyleFragment();  
+                 return   new TestSrainMaterialFragment();
              case  R.id.base_ui_home_radio2:
             	 
                  return  new MenuFragment();

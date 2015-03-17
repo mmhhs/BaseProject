@@ -32,7 +32,7 @@ import android.view.View;
 import com.base.feima.baseproject.R;
 
 /**
- * Class used internally by {@link RefreshActionItem} to show a determinate
+ * Class used internally by {@link } to show a determinate
  * progress indicator. Two display modes are supported "wheel" and "pie"
  */
 class PieProgress extends View {
