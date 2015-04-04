@@ -3,6 +3,7 @@ package com.base.feima.baseproject.tool;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,7 +37,7 @@ public class PublicTools{
 	/**
 	 * 开发模式设置
 	 */
-	public static boolean DEVELOPER_MODE = false;
+	public static boolean DEVELOPER_MODE = true;
 	
 	/**
 	 * 电话对话框
@@ -73,6 +75,22 @@ public class PublicTools{
 		create();
 		alertDialog.show();
 	}
+
+    /**
+     * 电话对话框
+     * @param context
+     */
+    public static void showPhoneWindow(final Context context,final String tel,View view){
+        PopupwindowTool popupwindowTool = new PopupwindowTool();
+        popupwindowTool.setOnSureClickListener(new OnSureClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+tel));
+                context.startActivity(intent);
+            }
+        });
+        popupwindowTool.showSureWindow(context,view,"",context.getResources().getString(R.string.dialog_item4),true,true,false,0);
+    }
 	
 	/**
 	 * 电话点击事件
@@ -181,7 +199,9 @@ public class PublicTools{
 	 */
 	public static void closeKeyBoard(Activity activity){
 		
-		try{			
+		try{
+            activity.getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 			((InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE))
 			.hideSoftInputFromWindow(activity.getCurrentFocus()
 					.getWindowToken(),
@@ -190,6 +210,25 @@ public class PublicTools{
 			e.printStackTrace();
 		}
 	}
+
+    /**
+     * 打开键盘
+     * @param activity
+     */
+    public static void openKeyBoard(Handler handler,final Activity activity,int delay) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InputMethodManager imm = (InputMethodManager) activity.getSystemService(Service.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        }, delay);
+    }
 	
 	/**
 	 * 保留一位小数
