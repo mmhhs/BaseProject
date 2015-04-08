@@ -9,8 +9,10 @@ import com.base.feima.baseproject.task.TaskManager;
 import com.base.feima.baseproject.util.MFragmentsManager;
 import com.base.feima.baseproject.util.ScreenManager;
 
-public class BaseFragmentActivity extends FragmentActivity {
-	public String taskTag = "BaseFragmentActivity";
+import butterknife.ButterKnife;
+
+public abstract class BaseFragmentActivity extends FragmentActivity {
+	public String taskTag = "BaseFragmentActivity";//当前BaseFragmentActivity的线程标识
 	protected ScreenManager screenManager = ScreenManager.getScreenManagerInstance();
 	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
     public MFragmentsManager mFragmentsManager = MFragmentsManager.getFragmentManagerInstance();
@@ -20,6 +22,14 @@ public class BaseFragmentActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		screenManager.pushActivity(this);
 	}
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.inject(this);
+        initView();
+        initData();
+    }
 	
 	@Override
 	protected void onPause(){		
@@ -36,6 +46,16 @@ public class BaseFragmentActivity extends FragmentActivity {
 		super.onDestroy();
 		cancelTasks();
 	}
+
+    /**
+     * 初始化视图相关操作
+     */
+    public abstract void initView();
+
+    /**
+     * 初始化数据相关操作
+     */
+    public abstract void initData();
 
     /**
      * 添加线程到线程管理中

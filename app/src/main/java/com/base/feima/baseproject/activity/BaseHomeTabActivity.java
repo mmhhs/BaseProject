@@ -16,10 +16,14 @@ import com.base.feima.baseproject.fragment.MenuFragment;
 import com.base.feima.baseproject.fragment.TestFragment;
 import com.widget.sample.SampleSrainMaterialFragment;
 
+import butterknife.InjectView;
+
 
 public class BaseHomeTabActivity extends BaseFragmentActivity{
-	private FragmentTabHost mTabHost;
-	private RadioGroup mTabRg;
+    @InjectView(android.R.id.tabhost)
+    public FragmentTabHost mTabHost;
+    @InjectView(R.id.base_ui_home_radiogroup)
+    public RadioGroup mTabRg;
 
 	private final Class[] fragments = { SampleSrainMaterialFragment.class, MenuFragment.class,
 			TestFragment.class, MenuFragment.class };
@@ -27,18 +31,12 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) { 
-	        /*
-	        Activity was brought to front and not created,
-	        Thus finishing this will get us to the last viewed activity
-	        */
+        setTaskTag(getLocalClassName());
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
 	        return; 
 	    } 
         setContentView(R.layout.base_ui_home);
-        setTaskTag(getLocalClassName());
-		initView();
-		
     }
        
     
@@ -46,11 +44,9 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
     public void onConfigurationChanged(Configuration newConfig) {      
 		super.onConfigurationChanged(newConfig);
     }
-    
-    private void initView(){
-    	mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-		mTabHost.setup(this, getSupportFragmentManager(), R.id.base_ui_home_frame);
-		/* 得到fragment的个数 */
+
+    @Override
+    public void initView(){
 		int count = fragments.length;
 		for (int i = 0; i < count; i++) {
 			/* 为每一个Tab按钮设置图标、文字和内容 */
@@ -91,7 +87,10 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
 
     }
 
- 
+    @Override
+    public void initData(){
+
+    }
     
       
 }

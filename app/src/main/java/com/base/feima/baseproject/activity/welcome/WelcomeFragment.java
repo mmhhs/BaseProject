@@ -18,10 +18,15 @@ import com.base.feima.baseproject.view.PageIndicatorView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class WelcomeFragment extends BaseFragment implements OnPageChangeListener {
-	private ViewPager mViewPager;
-	private PageIndicatorView mPageIndicatorView;
+    @InjectView(R.id.fragment_wel_view)
+    public ViewPager mViewPager;
+    @InjectView(R.id.fragment_wel_pageIndicatorView)
+    public PageIndicatorView mPageIndicatorView;
 	private ViewPagerAdapter adapter1;
 	private List<Integer> imgList = new ArrayList<Integer>();
 	private List<View> viewList = new ArrayList<View>();
@@ -31,23 +36,32 @@ public class WelcomeFragment extends BaseFragment implements OnPageChangeListene
 	public WelcomeFragment(){
 
 	}
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.base_fragment_welcome, container, false);
-	}
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
-		mViewPager = (ViewPager) getView().findViewById(R.id.fragment_wel_view);
-		mPageIndicatorView = (PageIndicatorView) getView().findViewById(R.id.fragment_wel_pageIndicatorView);
-		initData();
-	}
-	
-	private void initData(){
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        if (rootView == null)
+        {
+            rootView = inflater.inflate(R.layout.base_fragment_welcome,null);
+            ButterKnife.inject(this, rootView);
+            initView();
+            initData();
+        }
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if (parent != null)
+        {
+            parent.removeView(rootView);
+        }
+        return rootView;
+    }
+
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void initData(){
 		imgList.add(R.drawable.base_shape_corner_white);
 		for(int i=0;i<imgList.size();i++){
 			View view = LayoutInflater.from(getActivity()).inflate(R.layout.base_adapter_viewpager_welcome, null);
@@ -98,7 +112,7 @@ public class WelcomeFragment extends BaseFragment implements OnPageChangeListene
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
 		// TODO Auto-generated method stub
-		
+        mPageIndicatorView.setCurrentPage(arg0);
 	}
 
 	@Override
@@ -110,7 +124,7 @@ public class WelcomeFragment extends BaseFragment implements OnPageChangeListene
 	@Override
 	public void onPageSelected(int arg0) {
 		// TODO Auto-generated method stub
-		mPageIndicatorView.setCurrentPage(mViewPager.getCurrentItem());
+
 
 	}
 	

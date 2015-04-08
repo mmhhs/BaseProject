@@ -19,10 +19,13 @@ import com.base.feima.baseproject.util.SharedUtil;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WelcomeActivity extends BaseFragmentActivity {
+import butterknife.InjectView;
 
-	private ImageView imageView ;
-	private LinearLayout proLinear;
+public class WelcomeActivity extends BaseFragmentActivity {
+    @InjectView(R.id.welcome_imageView1)
+    public ImageView imageView ;
+    @InjectView(R.id.welcome_fragmentRoot)
+    public LinearLayout proLinear;
 	private String userId;
 	private Boolean isLogin = false;
 	private Handler handler;
@@ -33,22 +36,23 @@ public class WelcomeActivity extends BaseFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) { 
-	        // Activity was brought to front and not created, 
-	        // Thus finishing this will get us to the last viewed activity 
+		if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
 	        finish(); 
 	        return; 
-	    } 
+	    }
+
 		setContentView(R.layout.base_ui_welcome);
-		fMgr = getSupportFragmentManager();
-		
-		proLinear = (LinearLayout) this.findViewById(R.id.welcome_fragmentRoot);
-		imageView = (ImageView) findViewById(R.id.welcome_imageView1);
-		initData();
+
+
 				
 	}
-	
-	/**
+
+    @Override
+    public void initView() {
+
+    }
+
+    /**
 	 * 初始化首个Fragment
 	 */
 	private void initFragment() {
@@ -108,8 +112,9 @@ public class WelcomeActivity extends BaseFragmentActivity {
 		}
 		
 	}
-	
-	private void initData(){		
+
+    public void initData(){
+        fMgr = getSupportFragmentManager();
 		Boolean isFirst = SharedUtil.getHelpStatus(getApplicationContext());
 		int versionHelp = SharedUtil.getHelpCode(getApplicationContext());
 		int versionCurrent = 1;
@@ -136,8 +141,7 @@ public class WelcomeActivity extends BaseFragmentActivity {
 	//点击返回按钮
 	@Override
 	public void onBackPressed() {		
-		finish();			
-		super.onBackPressed();		
+		finish();
 	}
 	
 

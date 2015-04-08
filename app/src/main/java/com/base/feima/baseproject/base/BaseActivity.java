@@ -8,9 +8,11 @@ import com.base.feima.baseproject.task.BaseTask;
 import com.base.feima.baseproject.task.TaskManager;
 import com.base.feima.baseproject.util.ScreenManager;
 
+import butterknife.ButterKnife;
 
-public class BaseActivity extends Activity{
-	public String taskTag = "BaseActivity";
+
+public abstract class BaseActivity extends Activity{
+	public String taskTag = "BaseActivity";//当前BaseActivity的线程标识
 	protected ScreenManager screenManager = ScreenManager.getScreenManagerInstance();
 	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
 	
@@ -19,6 +21,14 @@ public class BaseActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		screenManager.pushActivity(this);
 	}
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.inject(this);
+        initView();
+        initData();
+    }
 	
 	@Override
 	protected void onPause(){
@@ -35,6 +45,16 @@ public class BaseActivity extends Activity{
 		super.onDestroy();
 		cancelTasks();
 	}
+
+    /**
+     * 初始化视图相关操作
+     */
+    public abstract void initView();
+
+    /**
+     * 初始化数据相关操作
+     */
+    public abstract void initData();
 
     /**
      * 添加线程到线程管理中
