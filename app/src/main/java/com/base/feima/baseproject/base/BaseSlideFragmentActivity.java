@@ -15,7 +15,7 @@ import com.widget.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class BaseSlideFragmentActivity extends SlidingFragmentActivity {
 	public String tagString = "BaseSlideFragmentActivity";
-	protected ScreenManager screenManager = ScreenManager.getScreenManager();
+	protected ScreenManager screenManager = ScreenManager.getScreenManagerInstance();
 	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
 	protected SlidingMenu slidingMenu;
 	

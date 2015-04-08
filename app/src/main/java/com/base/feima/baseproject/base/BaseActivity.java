@@ -11,7 +11,7 @@ import com.base.feima.baseproject.util.ScreenManager;
 
 public class BaseActivity extends Activity{
 	public String tagString = "BaseActivity";
-	protected ScreenManager screenManager = ScreenManager.getScreenManager();
+	protected ScreenManager screenManager = ScreenManager.getScreenManagerInstance();
 	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
 	
 	@Override
@@ -35,7 +35,11 @@ public class BaseActivity extends Activity{
 		super.onDestroy();
 		cancelTasks();
 	}
-	
+
+    /**
+     * 添加线程到线程管理中
+     * @param task
+     */
 	protected void addTask(BaseTask task){
 		try {
 			taskManager.addTask(tagString, task);
@@ -44,24 +48,38 @@ public class BaseActivity extends Activity{
 			e.printStackTrace();
 		}		
 	}
-	
+
+    /**
+     * 关闭当前Activity中所有还在运行的线程
+     */
 	protected void cancelTasks(){
 		taskManager.cancelLimitTasks(tagString);
 	}
-	
-	public void finishCurrent(){
+
+    /**
+     * 关闭当前Activity
+     */
+	public void finishSelf(){
 		try {
 			screenManager.finishActivity(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-	}	
-	
+	}
+
+    /**
+     * 获取线程标识
+     * @return
+     */
 	public String getTagString() {
 		return tagString;
 	}
 
+    /**
+     * 设置线程标识
+     * @param taskTag
+     */
 	public void setTagString(String tagString) {
 		this.tagString = tagString;
 	}

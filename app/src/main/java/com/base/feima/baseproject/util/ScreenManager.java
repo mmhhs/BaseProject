@@ -5,6 +5,11 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity管理
+ * @author mmh
+ * 2015.02.08
+ */
 public class ScreenManager {
 	private static List<Activity> activityList = new ArrayList<Activity>();
 	private static ScreenManager instance;
@@ -12,7 +17,7 @@ public class ScreenManager {
 	private ScreenManager() {
 	}
 
-	public static ScreenManager getScreenManager() {
+	public static synchronized ScreenManager getScreenManagerInstance() {
 		if (instance == null) {
 			instance = new ScreenManager();
 		}
@@ -54,7 +59,7 @@ public class ScreenManager {
 	}
 
 	/**
-	 * 退出栈中所有Activity
+	 * 退出栈中所有Activity除了一个Activity
 	 */	
 	public void finishAllActivityExceptOne(Class cls) {
 		for(int i=0;i<activityList.size();i++){

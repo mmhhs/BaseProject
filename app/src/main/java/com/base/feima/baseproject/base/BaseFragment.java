@@ -7,17 +7,17 @@ import android.support.v4.app.Fragment;
 
 import com.base.feima.baseproject.task.BaseTask;
 import com.base.feima.baseproject.task.TaskManager;
+import com.base.feima.baseproject.util.MFragmentsManager;
 
 
 public class BaseFragment extends Fragment {
-	public String tagString = "BaseFragment";
+	public String taskTag = "BaseFragment";//当前Fragment的线程标识
 	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
-	
-	protected Activity activity;
+    public MFragmentsManager mFragmentsManager = MFragmentsManager.getFragmentManagerInstance();
+
 	@Override
 	public void onAttach(Activity activity){
 		super.onAttach(activity);
-		this.activity = activity;
 	}
 	
 	
@@ -25,6 +25,7 @@ public class BaseFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+        mFragmentsManager.addFragment(this);
 	}
 	
 	@Override
@@ -47,28 +48,41 @@ public class BaseFragment extends Fragment {
 		super.onDestroy();
 		cancelTasks();
 	}
-	
+
+    /**
+     * 添加线程到线程管理中
+     * @param task
+     */
 	protected void addTask(BaseTask task){
 		try {
-			taskManager.addTask(tagString, task);
+			taskManager.addTask(taskTag, task);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}			
 	}
-	
+
+    /**
+     * 关闭当前Fragment中所有还在运行的线程
+     */
 	protected void cancelTasks(){
-		taskManager.cancelLimitTasks(tagString);
+		taskManager.cancelLimitTasks(taskTag);
 	}
 
-
-	public String getTagString() {
-		return tagString;
+    /**
+     * 获取线程标识
+     * @return
+     */
+	public String getTaskTag() {
+		return taskTag;
 	}
 
-
-	public void setTagString(String tagString) {
-		this.tagString = tagString;
+    /**
+     * 设置线程标识
+     * @param taskTag
+     */
+	public void setTaskTag(String taskTag) {
+		this.taskTag = taskTag;
 	}
 
 

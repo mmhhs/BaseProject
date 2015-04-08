@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * 线程管理
- * @author Administrator
- *
+ * @author mmh
+ * 2015.02.08
  */
 public class TaskManager {
 	public String tag = "TaskManager";
@@ -17,13 +17,16 @@ public class TaskManager {
 	private TaskManager() {
 	}
 
-	public static TaskManager getTaskManagerInstance() {
+	public static synchronized TaskManager getTaskManagerInstance() {
 		if (instance == null) {
 			instance = new TaskManager();
 		}
 		return instance;
 	}
-	
+
+    /**
+     * 添加线程
+     */
 	public void addTask(String tagString,BaseTask task){
 		try {
 			TaskModel taskModel = new TaskModel();
@@ -35,7 +38,10 @@ public class TaskManager {
 			e.printStackTrace();
 		}		
 	}
-	
+
+    /**
+     * 关闭所有还在运行的线程
+     */
 	public void cancelAllTasks(){
 		for(int i=0;i<taskList.size();i++){
 		try {			
@@ -50,7 +56,11 @@ public class TaskManager {
 		}
 		}
 	}
-	
+
+    /**
+     * 关闭tagString所标识的Activity或者Fragment中所有还在运行的线程
+     * @param tagString
+     */
 	public void cancelLimitTasks(String tagString){
 		for(int i=0;i<taskList.size();i++){
 		try {			
@@ -65,7 +75,10 @@ public class TaskManager {
 		}
 		}
 	}
-	
+
+    /**
+     * 关闭一个还在运行的线程
+     */
 	public void cancelOneTasks(BaseTask task){
 		for(int i=0;i<taskList.size();i++){
 		try {			
