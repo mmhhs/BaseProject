@@ -6,12 +6,14 @@ import android.support.v4.app.FragmentActivity;
 
 import com.base.feima.baseproject.task.BaseTask;
 import com.base.feima.baseproject.task.TaskManager;
+import com.base.feima.baseproject.util.MFragmentsManager;
 import com.base.feima.baseproject.util.ScreenManager;
 
 public class BaseFragmentActivity extends FragmentActivity {
-	public String tagString = "BaseFragmentActivity";
+	public String taskTag = "BaseFragmentActivity";
 	protected ScreenManager screenManager = ScreenManager.getScreenManagerInstance();
 	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
+    public MFragmentsManager mFragmentsManager = MFragmentsManager.getFragmentManagerInstance();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class BaseFragmentActivity extends FragmentActivity {
      */
 	protected void addTask(BaseTask task){
 		try {
-			taskManager.addTask(tagString, task);
+			taskManager.addTask(taskTag, task);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -52,24 +54,29 @@ public class BaseFragmentActivity extends FragmentActivity {
      * 关闭当前FragmentActivity中所有还在运行的线程
      */
 	protected void cancelTasks(){
-		taskManager.cancelLimitTasks(tagString);
+		taskManager.cancelLimitTasks(taskTag);
 	}
 
     /**
      * 获取线程标识
      * @return
      */
-	public String getTagString() {
-		return tagString;
+	public String getTaskTag() {
+		return taskTag;
 	}
 
     /**
      * 设置线程标识
      * @param taskTag
      */
-	public void setTagString(String tagString) {
-		this.tagString = tagString;
+	public void setTaskTag(String taskTag) {
+		this.taskTag = taskTag;
 	}
 
-	
+    /**
+     * 删除所有Fragment
+     */
+	public void removeAllFragments(){
+        mFragmentsManager.removeAllFragment(getSupportFragmentManager());
+    }
 }

@@ -31,7 +31,7 @@ public class BaseHomeActivity extends BaseFragmentActivity implements OnCheckedC
 	        return; 
 	    } 
         setContentView(R.layout.base_ui_home);
-        setTagString(getLocalClassName());
+        setTaskTag(getLocalClassName());
 		initView();
 		
     }

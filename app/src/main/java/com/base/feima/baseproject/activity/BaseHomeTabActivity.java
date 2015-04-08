@@ -36,7 +36,7 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
 	        return; 
 	    } 
         setContentView(R.layout.base_ui_home);
-        setTagString(getLocalClassName());
+        setTaskTag(getLocalClassName());
 		initView();
 		
     }
