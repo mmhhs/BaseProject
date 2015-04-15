@@ -3,7 +3,7 @@
     android:id="@+id/head_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_blue" >
+    android:background="@color/base_pullable_top_light_blue" >
 
     <RelativeLayout
         android:layout_width="match_parent"

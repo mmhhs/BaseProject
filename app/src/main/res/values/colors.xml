@@ -5,49 +5,39 @@
      <color name="navi_bottom_text_on">#ff646f</color>
      <color name="navi_bottom_text_off">#b4b4b4</color>
      <color name="navi_bottom_line">#ff646f</color>
-     
      <!-- 标题背景颜色 -->
      <color name="title_color">#ff646f</color>
-     
      <!-- 背景颜色 -->
-     <color name="bg_grey">#fafafa</color>     
+     <color name="bg_grey">#fafafa</color>
+    <!-- 线条颜色 -->
+    <color name="line_color">#e6e6e6</color>
 
-     
-     <color name="pop_bg_grey">#e1e6f6</color>
      
      <!-- 文字颜色 -->
      <color name="text_deep">#5a5a5a</color>
      <color name="text_deepgrey">#969696</color>
      <color name="text_lightgrey">#b8b8b8</color>
-     <color name="text_pink">#fe6470</color>
-
-     <!-- 线条颜色 -->
-     <color name="line_color">#e6e6e6</color>
      <!-- 编辑框颜色 -->
-     <color name="edit_content">#8c8c8c</color>
      <color name="edit_bg">#f8f8f8</color>
      
 
      <!-- 普通颜色 -->
      <color name="grey">#b4b4b4</color>
-     <color name="deep_grey">#5a5a5a</color>
-     <color name="light_grey">#f6f9f9</color>
      <color name="white">#ffffff</color>
      <color name="black">#000000</color>
-     <color name="lightred">#e6abac</color>
      <color name="clear">#00000000</color>
      <color name="transparent">#e0000000</color>
-     <color name="gray">#aaaaaa</color>
-     <color name="light_blue">#6593cb</color>
-
-     <color name="green">#ff34a350</color>
+    <!--pullable-->
+     <color name="base_pullable_bottom_gray">#aaaaaa</color>
+     <color name="base_pullable_top_light_blue">#6593cb</color>
+    <!--ultimate-->
+    <color name="green">#ff34a350</color>
     <color name="red">#ffc93437</color>
     <color name="yellow">#fff7d23e</color>
     <color name="blue">#ff375bf1</color>
-     
-     <color name="put_on">#00000000</color>
-     <color name="put_off">#40000000</color>
-     
+    <!--put_effect-->
+     <color name="base_put_on">#00000000</color>
+     <color name="base_put_off">#40000000</color>
      <!-- base_scrain_ -->
      <color name="cube_mints_f1f1f1">#fff1f1f1</color>
      <color name="cube_mints_main_color">#ff007edf</color>

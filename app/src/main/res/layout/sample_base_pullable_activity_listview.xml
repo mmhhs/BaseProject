@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:divider="@color/gray"
+        android:divider="@color/base_pullable_bottom_gray"
         android:dividerHeight="1dp" />
 
     <include layout="@layout/base_pullable_load_more" />

@@ -39,7 +39,7 @@
         <com.widget.ultimate.ui.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:icon="@drawable/floating_action_button_ic_fab_star"
+            fab:icon="@drawable/base_ultimate_floating_action_button_ic_fab_star"
             fab:colorNormal="#ff5f9a"
             fab:colorPressed="#ec407a"/>
 

@@ -90,7 +90,7 @@ public abstract class DragDropTouchListener implements RecyclerView.OnItemTouchL
         this.activity = activity;
         this.displayMetrics = recyclerView.getResources().getDisplayMetrics();
         this.scrollAmount = (int) (50 / displayMetrics.density);
-        this.dragHighlight = recyclerView.getResources().getDrawable(R.drawable.drag_frame);
+        this.dragHighlight = recyclerView.getResources().getDrawable(R.drawable.base_drag_frame);
 
     }
 
