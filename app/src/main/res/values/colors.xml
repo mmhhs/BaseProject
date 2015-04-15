@@ -27,11 +27,11 @@
      <color name="edit_content">#8c8c8c</color>
      <color name="edit_bg">#f8f8f8</color>
      
-     
+
      <!-- 普通颜色 -->
      <color name="grey">#b4b4b4</color>
-     <color name="deep_grey">#5a5a5a</color>        
-     <color name="light_grey">#f6f9f9</color>     
+     <color name="deep_grey">#5a5a5a</color>
+     <color name="light_grey">#f6f9f9</color>
      <color name="white">#ffffff</color>
      <color name="black">#000000</color>
      <color name="lightred">#e6abac</color>
@@ -39,7 +39,7 @@
      <color name="transparent">#e0000000</color>
      <color name="gray">#aaaaaa</color>
      <color name="light_blue">#6593cb</color>
-     
+
      <color name="green">#ff34a350</color>
     <color name="red">#ffc93437</color>
     <color name="yellow">#fff7d23e</color>
