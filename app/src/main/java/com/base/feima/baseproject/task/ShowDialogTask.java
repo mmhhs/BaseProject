@@ -7,7 +7,7 @@ import android.widget.PopupWindow;
 import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.model.ResultModel;
 import com.base.feima.baseproject.net.HttpUtil;
-import com.base.feima.baseproject.net.Httpclient2;
+import com.base.feima.baseproject.net.Httpclient;
 import com.base.feima.baseproject.tool.PublicTools;
 import com.base.feima.baseproject.tool.popupwindow.PopupwindowTool;
 import com.base.feima.baseproject.util.BaseConstant.TaskResult;
@@ -19,23 +19,24 @@ import java.util.Map;
 
 
 public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
+    public final static int POST = 1;
+    public final static int GET = 2;
+    public final static int PUT = 3;
+    public final static int UPLOAD = 4;
+    public final static int UPLOADS = 5;
+    public final static int NET_ERROR = 6;
+    public int accessType;
 	public boolean showDialog = false;
-	public boolean showNet = false;
+	public boolean showNetToast = false;
 	public PopupWindow loadPopupWindow;
 	public Context context;
 	public View parentView;
 	public String loadsString = "";
 	public String httpUrl = "";
 	public Map<String, Object> argMap;
-	public final static int POST = 1;
-	public final static int GET = 2;
-	public final static int PUT = 3;
-	public final static int UPLOAD = 4;
-	public final static int UPLOADS = 5;
-	public final static int NET_ERROR = 6;
-	public int accessType;
 	public String errorMsg;
-	public String resultsString = null;	
+	public String resultsString = null;
+
 	public List<File> fileList;
 	public String keyString = "Filedata";
 	public String keyString2 = "Filedata[]";
@@ -61,7 +62,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 	/**
 	 * 网络加载线程
 	 * @param context 上下文
-	 * @param parentView 父类视图 
+	 * @param parentView 父类视图
 	 * @param loadsString 显示文字
 	 * @param showDialog 是否显示dialog 若显示parentView不能为空
 	 * @param httpUrl 访问路径
@@ -78,8 +79,17 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 		this.accessType = accessType;
 		this.tagString = tagString;
 	}
-	
-	public ShowDialogTask(Context context,String tagString,View parentView,String loadsString,boolean showDialog,boolean showNet,String httpUrl, Map<String, Object> argMap,int accessType){
+    /**
+     * 网络加载线程 最后一个参数若为true，则没有网络时，弹出提示
+     * @param context 上下文
+     * @param parentView 父类视图
+     * @param loadsString 显示文字
+     * @param showDialog 是否显示dialog 若显示parentView不能为空
+     * @param httpUrl 访问路径
+     * @param argMap 参数集合
+     * @param accessType 访问方式
+     */
+	public ShowDialogTask(Context context,String tagString,View parentView,String loadsString,boolean showDialog,String httpUrl, Map<String, Object> argMap,int accessType,boolean showNet){
 		this.context = context;
 		this.parentView = parentView;
 		this.loadsString = loadsString;
@@ -88,7 +98,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 		this.argMap = argMap;
 		this.accessType = accessType;
 		this.tagString = tagString;
-		this.showNet = showNet;
+		this.showNetToast = showNet;
 	}
 	/**
 	 * 网络加载线程-上传文件
@@ -137,8 +147,19 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 		this.accessType = accessType;
 		this.tagString = tagString;
 	}
-	
-	public ShowDialogTask(Context context,String tagString,View parentView,String loadsString,boolean showDialog,boolean showNet,String httpUrl, Map<String, Object> argMap,List<File> fileList,String key,int accessType){
+    /**
+     * 网络加载线程-上传文件-文件标识 最后一个参数若为true，则没有网络时，弹出提示
+     * @param context 上下文
+     * @param parentView 父类视图
+     * @param loadsString 显示文字
+     * @param showDialog 是否显示dialog 若显示parentView不能为空
+     * @param httpUrl 访问路径
+     * @param argMap 参数集合
+     * @param fileList 文件集合
+     * @param key 服务器判断文件标识
+     * @param accessType 访问方式
+     */
+	public ShowDialogTask(Context context,String tagString,View parentView,String loadsString,boolean showDialog,String httpUrl, Map<String, Object> argMap,List<File> fileList,String key,int accessType,boolean showNet){
 		this.context = context;
 		this.parentView = parentView;
 		this.loadsString = loadsString;
@@ -149,7 +170,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 		this.keyString = key;
 		this.keyString2 = key;
 		this.accessType = accessType;
-		this.showNet = showNet;
+		this.showNetToast = showNet;
 		this.tagString = tagString;
 	}
 	
@@ -163,7 +184,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 			}
 			if(!HttpUtil.isnet(context)){				
 				taskFlag = NET_ERROR;
-				if (showNet) {
+				if (showNetToast) {
 					PublicTools.addToast(context, context.getResources().getString(R.string.net_tip));
 				}
 			}else {
@@ -171,7 +192,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 					if(parentView==null){
 						return;
 					}
-					loadPopupWindow = PopupwindowTool.showLoadWindow2(context, parentView, loadsString, null, 0, 0, 0);
+					loadPopupWindow = PopupwindowTool.showLoadWindow(context, parentView, loadsString, 0, 0, 0, 0);
 				}
 				
 			}				
@@ -194,7 +215,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 		switch (accessType) {
 		case POST:
 			try {
-				resultsString = Httpclient2.POSTMethod(httpUrl, argMap);
+				resultsString = Httpclient.POSTMethod(httpUrl, argMap);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -202,7 +223,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 			break;
 		case PUT:
 			try {
-				resultsString = Httpclient2.PUTMethod(httpUrl, argMap);
+				resultsString = Httpclient.PUTMethod(httpUrl, argMap);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -210,7 +231,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 			break;
 		case GET:
 			try {
-				resultsString = Httpclient2.GETMethod(httpUrl, argMap);
+				resultsString = Httpclient.GETMethod(httpUrl, argMap);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -218,7 +239,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 			break;
 		case UPLOAD:
 			try {
-				resultsString = Httpclient2.uploadSubmitFile2(httpUrl, argMap, fileList.get(0), keyString);
+				resultsString = Httpclient.uploadSubmitFile2(httpUrl, argMap, fileList.get(0), keyString);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -226,7 +247,7 @@ public class ShowDialogTask extends BaseTask<Void, String, TaskResult>{
 			break;
 		case UPLOADS:
 			try {
-				resultsString = Httpclient2.uploadSubmitFiles2(httpUrl, argMap, fileList, keyString2);
+				resultsString = Httpclient.uploadSubmitFiles2(httpUrl, argMap, fileList, keyString2);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

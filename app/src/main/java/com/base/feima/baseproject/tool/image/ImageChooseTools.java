@@ -16,7 +16,6 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import com.base.feima.baseproject.tool.PublicTools;
 import com.base.feima.baseproject.util.BaseConstant;
 
 import java.io.File;
@@ -36,9 +35,9 @@ public class ImageChooseTools implements Serializable{
 	public static final int PHOTO_WITH_CAMERA = 116;	
 	public static final int CHOOSE_PICTURE = 117;
 	public static final int PHOTO_PICKED_WITH_CROP = 118;
-	public static final int ScaleWidth = 480;
-	public static final int ScaleHeight = 800;
-	private static final String imagePath = BaseConstant.IMAGETAMPPATH;
+	public static final int ScaleWidth = 720;
+	public static final int ScaleHeight = 1280;
+	private static  String imagePath = "";
 	private static Uri imageUri;
 	private  String imageUrl = "";
 	
@@ -50,6 +49,7 @@ public class ImageChooseTools implements Serializable{
 	}
 
 	public ImageChooseTools(Activity context){
+        imagePath = BaseConstant.getTampImageFolder(context);
 		File dir = new File(imagePath);
 		if(!dir.exists()){
 			dir.mkdirs();
@@ -58,7 +58,7 @@ public class ImageChooseTools implements Serializable{
 	
 	/**
 	 * 获取拍照的照片原图路径
-	 * @param context
+	 * @param
 	 * @return
 	 */
 	public  String getTakePhotosUrl() {
@@ -67,7 +67,7 @@ public class ImageChooseTools implements Serializable{
 	}
 	/**
 	 * 获取拍照按比例压缩后的照片路径
-	 * @param context
+	 * @param
 	 * @return
 	 */
 	public  String getTakePhotoScaleUrl() {
@@ -75,7 +75,6 @@ public class ImageChooseTools implements Serializable{
 		try {
 			
 			result = saveScaleImage(imageUrl);
-			PublicTools.addLog("imageScale2", "imageUrl=" + imageUrl + "####result=" + result);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -97,7 +96,6 @@ public class ImageChooseTools implements Serializable{
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 			// 直接使用，没有缩小
 			context.startActivityForResult(intent, PHOTO_WITH_CAMERA); // 用户点击了从相机获取
-			PublicTools.addLog(tag, "intent=" + intent);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -140,13 +138,13 @@ public class ImageChooseTools implements Serializable{
 	
 	private static Intent doPickPhotoFromGallery() {
 		Intent intent = new Intent();
-		int apiLevel = PublicTools.getSystemVersion();
-		if(apiLevel>=19){
-			intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-		}else{
-			intent.setAction(Intent.ACTION_PICK);	
-		}
-//		intent.setAction(Intent.ACTION_PICK);
+//		int apiLevel = PublicTools.getSystemVersion();
+//		if(apiLevel>=19){
+//			intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+//		}else{
+//			intent.setAction(Intent.ACTION_PICK);
+//		}
+		intent.setAction(Intent.ACTION_PICK);
 		 // 使用Intent.ACTION_GET_CONTENT这个Action  ACTION_PICK
 		intent.setType("image/*"); // 获取任意图片类型
 		intent.putExtra("return-data", true); // 有返回值
@@ -201,10 +199,10 @@ public class ImageChooseTools implements Serializable{
     		
 			ContentResolver resolver = context.getContentResolver();
     		originalUri = data.getData();
-    		if(PublicTools.getSystemVersion()>=19){
-    			File file = new File(getPath(context, originalUri));
-    			originalUri = Uri.fromFile(file);
-    		}
+//    		if(PublicTools.getSystemVersion()>=19){
+//    			File file = new File(getPath(context, originalUri));
+//    			originalUri = Uri.fromFile(file);
+//    		}
     		
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -233,9 +231,9 @@ public class ImageChooseTools implements Serializable{
     		Uri originalUri = data.getData();	
     		if(originalUri!=null)
     		{
-    			if(PublicTools.getSystemVersion()>=19){
-    				result = getPath(context, originalUri);
-    			}else{
+//    			if(PublicTools.getSystemVersion()>=19){
+//    				result = getPath(context, originalUri);
+//    			}else{
     				String[] proj = {MediaStore.Images.Media.DATA};
 	       			 Cursor cursor = resolver.query(originalUri, proj, null, null, null);
 	       			 int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -243,7 +241,7 @@ public class ImageChooseTools implements Serializable{
 	       				 result = cursor.getString(column_index);
 	       			 }
 	       			 cursor.close();
-    			}
+//    			}
     			 
     		}
     		
@@ -317,15 +315,12 @@ public class ImageChooseTools implements Serializable{
     			bitmap = BitmapFactory.decodeFile(path, options);
     		}catch(Exception e){
     			e.printStackTrace();
-    			PublicTools.addLog(tag, "bitmapScale Exception=" + e);
     			return "";
     		}catch(OutOfMemoryError error){
     			error.printStackTrace();
-    			PublicTools.addLog(tag, "bitmapScale OutOfMemoryError=" + error);
     			return "";
     		}
     		if(bitmap==null){
-    			PublicTools.addLog(tag, "bitmapScale kongpath=" + path);
     			return "";
     		} 
     		boolean saveResult = saveJPGE_After(bitmap,100, fileSavePath);
@@ -358,7 +353,6 @@ public class ImageChooseTools implements Serializable{
             } else if (width < height && height > ScaleHeight) {//如果高度高的话根据宽度固定大小缩放
                 be = (int) (height / ScaleHeight);
             }
-            PublicTools.addLog(tag, "width=" + width + "height=" + height + "ScaleWidth=" + ScaleWidth + "ScaleHeight=" + ScaleHeight);
     		if(be<=1){
     			be = 1; 
     		}
@@ -375,7 +369,7 @@ public class ImageChooseTools implements Serializable{
 	
 	/**
 	 * 获取按比例压缩后的照片路径
-	 * @param context
+	 * @param
 	 * @return
 	 */
 	public static String getPictureScaleUrl(String imageUrl) {
@@ -417,17 +411,14 @@ public class ImageChooseTools implements Serializable{
     			}   
     		} catch (FileNotFoundException e) {  
     			photoFile.delete();
-    			e.printStackTrace();  
-    			PublicTools.addLog(tag, "filenotfound=" + e);
+    			e.printStackTrace();
     			result =  false;
     		} catch (IOException e) {  
     			photoFile.delete();
-    			e.printStackTrace();   
-    			PublicTools.addLog(tag, "io=" + e);
+    			e.printStackTrace();
     			result =  false;
     		}catch (Exception e){
-    			e.printStackTrace();   
-    			PublicTools.addLog(tag, "exception=" + e);
+    			e.printStackTrace();
     			result =   false;
     		}
     		result = true;

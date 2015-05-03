@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.base.feima.baseproject.R;
-import com.widget.niftynotification.lib.Effects;
 import com.widget.sample.SampleUltimateActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TestFragment extends Fragment{
-    private Effects effect = Effects.flip;
     private View rootView;// ª∫¥ÊFragment view
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {

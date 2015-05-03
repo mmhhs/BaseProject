@@ -1,11 +1,8 @@
 package com.base.feima.baseproject.tool;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,7 +13,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +22,6 @@ import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.tool.popupwindow.PopupwindowTool;
 import com.base.feima.baseproject.tool.popupwindow.PopupwindowTool.OnSureClickListener;
 import com.base.feima.baseproject.util.BaseConstant;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,42 +34,7 @@ public class PublicTools{
 	 */
 	public static boolean DEVELOPER_MODE = true;
 	
-	/**
-	 * 电话对话框
-	 * @param context
-	 */
-	public static void showPhoneDialog(final Context context,final String tel){
-		Dialog alertDialog = new AlertDialog.Builder(context)
-		.setTitle(context.getResources().getString(R.string.dialog_item0))
-		.setMessage(context.getResources().getString(R.string.dialog_item4))
-		.setNegativeButton(context.getResources().getString(R.string.dialog_item2),
-				new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(
-							DialogInterface dialog,
-							int which) {
-						// TODO Auto-generated method
-						
-					}
-				})
-		.setPositiveButton(context.getResources().getString(R.string.dialog_item1),
-		new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(
-					DialogInterface dialog,
-					int which) {
-				// TODO Auto-generated method
-				
-				Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+tel));
-				context.startActivity(intent);
-			}
-		}).
-
-		create();
-		alertDialog.show();
-	}
 
     /**
      * 电话对话框
@@ -92,25 +52,7 @@ public class PublicTools{
         popupwindowTool.showSureWindow(context,view,"",context.getResources().getString(R.string.dialog_item4),true,true,false,0);
     }
 	
-	/**
-	 * 电话点击事件
-	 * @author Administrator
-	 *
-	 */
-	public static class PhoneOnClickListener implements OnClickListener  
-	{  
-		public void onClick(View v) {  
-		// TODO Auto-generated method stub  
-			try {
-				showPhoneDialog(v.getContext(),v.getTag().toString());
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-			
-		}  
-	}  
-	
+
 	/**
 	 * 显示未登录提示
 	 * @param activity
@@ -481,22 +423,7 @@ public class PublicTools{
 //		}
 //		
 //	}
-	
-	/**
-	 * 打印日志
-	 * @param tag
-	 * @param value
-	 */
-	public static void addLog(String tag,String value){
-		try {
-			if(DEVELOPER_MODE){
-				Log.i(tag, value);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	}
+
 	
 	/**
 	 * 弹出toast
@@ -511,54 +438,7 @@ public class PublicTools{
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * 清除临时图片
-	 */
-	public static void deleteTampFile() {
-		try {
-			
-			File file = new File(BaseConstant.IMAGETAMPPATH);
-			delete(file);			
-			file = new File(BaseConstant.IMAGETAMPPATH);
-			if(!file.exists()){
-				file.mkdirs();
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	/**
-	 * 清除缓存图片
-	 */
-	public static void deleteSaveFile() {
-		try {
-			File file = new File(BaseConstant.IMAGESAVEPATH);
-			delete(file);
-			file = new File(BaseConstant.IMAGESAVEPATH);
-			if(!file.exists()){
-				file.mkdirs();
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	/**
-	 * 清除SD卡缓存图片
-	 */
-	public static void clearDiscCache() {
-		try {
-			ImageLoader imageLoader = ImageLoader.getInstance();
-			imageLoader.clearDiscCache();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+
 	
 	public static void delete(File file) {
 		if (file.isFile()) {

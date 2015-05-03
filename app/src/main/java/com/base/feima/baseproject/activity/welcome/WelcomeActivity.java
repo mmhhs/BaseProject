@@ -22,13 +22,14 @@ import java.util.TimerTask;
 import butterknife.InjectView;
 
 public class WelcomeActivity extends BaseFragmentActivity {
-    @InjectView(R.id.welcome_imageView1)
+    @InjectView(R.id.base_ui_welcome_imageView)
     public ImageView imageView ;
-    @InjectView(R.id.welcome_fragmentRoot)
+    @InjectView(R.id.base_ui_welcome_fragmentRoot)
     public LinearLayout proLinear;
 	private String userId;
 	private Boolean isLogin = false;
 	private Handler handler;
+    private Timer timer;
 	
 	private static FragmentManager fMgr;
 	private final String tabTag1 = "WelcomeFragment";
@@ -40,12 +41,20 @@ public class WelcomeActivity extends BaseFragmentActivity {
 	        finish(); 
 	        return; 
 	    }
-
 		setContentView(R.layout.base_ui_welcome);
-
-
-				
 	}
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        try {
+            if(timer!=null){
+                timer.cancel();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initView() {
@@ -67,7 +76,7 @@ public class WelcomeActivity extends BaseFragmentActivity {
 			}
 			
 		});
-		ft.add(R.id.welcome_fragmentRoot, welcomeFragment, tabTag1);
+		ft.add(R.id.base_ui_welcome_fragmentRoot, welcomeFragment, tabTag1);
 		ft.commit();		
 	}
 	
@@ -83,7 +92,7 @@ public class WelcomeActivity extends BaseFragmentActivity {
 			}
 			
 		};
-		final Timer timer = new Timer(true);
+		timer = new Timer(true);
 		timer.schedule(task, 2000);
 		handler = new Handler(){  
 			 public void handleMessage(Message msg) {

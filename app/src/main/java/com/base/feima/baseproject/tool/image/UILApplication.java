@@ -61,7 +61,7 @@ public class UILApplication extends Application {
 	public static void initImageLoader(Context context) {
 		int maxImageWidthForMemoryCache = 720;
 		int maxImageHeightForMemoryCache = 1280;
-		String imgDiscCache = BaseConstant.IMAGESAVEPATH;
+		String imgDiscCache = BaseConstant.getSaveImageFolder(context);
 		File cacheDir = null ;
 		BitmapProcessor bitmapProcessor = null;
 		
@@ -75,7 +75,7 @@ public class UILApplication extends Application {
 				.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
 		memClass = memClass > 128 ? 128 : memClass;
 		// 使用可用内存的1/4作为图片缓存
-		final int cacheSize = 1024 * 1024 * memClass / 3;
+		final int cacheSize = 1024 * 1024 * memClass / 4;
 
 		configs = new
 				ImageLoaderConfiguration.Builder(context)

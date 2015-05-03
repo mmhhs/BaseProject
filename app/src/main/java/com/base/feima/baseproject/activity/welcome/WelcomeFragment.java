@@ -23,6 +23,7 @@ import butterknife.InjectView;
 
 
 public class WelcomeFragment extends BaseFragment implements OnPageChangeListener {
+    public View rootView;
     @InjectView(R.id.fragment_wel_view)
     public ViewPager mViewPager;
     @InjectView(R.id.fragment_wel_pageIndicatorView)
@@ -65,9 +66,9 @@ public class WelcomeFragment extends BaseFragment implements OnPageChangeListene
 		imgList.add(R.drawable.base_shape_corner_white);
 		for(int i=0;i<imgList.size();i++){
 			View view = LayoutInflater.from(getActivity()).inflate(R.layout.base_adapter_viewpager_welcome, null);
-			ImageView img = (ImageView) view.findViewById(R.id.adapter_wel_imageView1);
+			ImageView img = (ImageView) view.findViewById(R.id.base_adapter_wel_imageView);
 			img.setImageDrawable(getResources().getDrawable(imgList.get(i)));
-			ImageButton imgButton = (ImageButton) view.findViewById(R.id.adapter_wel_imageButton1);
+			ImageButton imgButton = (ImageButton) view.findViewById(R.id.base_adapter_wel_imageButton);
 			if(i==(imgList.size()-1)){
 				if(clickButton){
 					imgButton.setVisibility(View.VISIBLE);

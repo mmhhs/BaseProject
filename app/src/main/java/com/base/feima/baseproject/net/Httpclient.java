@@ -1,6 +1,5 @@
 package com.base.feima.baseproject.net;
 
-import com.base.feima.baseproject.tool.PublicTools;
 import com.base.feima.baseproject.util.LogUtil;
 
 import org.apache.http.HttpEntity;
@@ -17,6 +16,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -33,7 +33,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 
-public class Httpclient2 {
+public class Httpclient {
 	public static final String TAG = "Httpclient Result";
 	
 	
@@ -63,6 +63,7 @@ public class Httpclient2 {
         }
         //将字节数组转换成为字符串
         String result = bytesToString(dataByte);
+        LogUtil.d("arg= " + new JSONObject(argsMap).toString());
         LogUtil.d("" + url + "= " + result);
         return result;
     }
@@ -88,6 +89,7 @@ public class Httpclient2 {
         }
         //将字节数组转换成为字符串
         String result = bytesToString(dataByte);
+        LogUtil.d("arg= " + new JSONObject(argsMap).toString());
         LogUtil.d("" + url + "= " + result);
         return result;
     }
@@ -117,6 +119,7 @@ public class Httpclient2 {
         }
         //将字节数组转换成为字符串
         String result = bytesToString(dataByte);
+        LogUtil.d("arg= " + new JSONObject(argsMap).toString());
         LogUtil.d("" + url + "= " + result);
         return result;
     }
@@ -202,115 +205,7 @@ public class Httpclient2 {
 
 	/**
 	 * 提交参数里有文件的数据
-	 * @param <MultipartEntity>
-	 *
-	 * @param url
-	 *            服务器地址
-	 * @param param
-	 *            参数
-	 * @return 服务器返回结果
-	 * @throws Exception
-	 */
-	public static String uploadSubmitFile(String url, Map<String, String> param,
-			File file,String key) throws Exception {
-		HttpPost post = new HttpPost(url);
-
-
-		MultipartEntity entity = new MultipartEntity();
-
-		if (param != null && !param.isEmpty()) {
-			for (Entry<String, String> entry : param.entrySet()) {
-				if (entry.getValue() != null
-						&& entry.getValue().trim().length() > 0) {
-					entity.addPart(entry.getKey(),
-							new StringBody(entry.getValue(),Charset.forName("UTF-8")));
-				}
-			}
-		}
-		// 添加文件参数
-		if (file != null && file.exists()) {
-			entity.addPart(key, new FileBody(file));
-
-		}
-		post.setEntity(entity);
-		HttpClient httpClient = new DefaultHttpClient();//发送请求
-		HttpResponse response = httpClient.execute(post);
-		int stateCode = response.getStatusLine().getStatusCode();
-		StringBuffer sb = new StringBuffer();
-		if (stateCode == HttpStatus.SC_OK) {
-			HttpEntity result = response.getEntity();
-			if (result != null) {
-				InputStream is = result.getContent();
-				BufferedReader br = new BufferedReader(
-						new InputStreamReader(is));
-				String tempLine;
-				while ((tempLine = br.readLine()) != null) {
-					sb.append(tempLine);
-				}
-			}
-		}
-		post.abort();
-		LogUtil.d("" + url + "= " + sb.toString());
-		return sb.toString();
-	}
-	/**
-	 * 提交参数里有文件的数据 多个文件
-	 * @param <MultipartEntity>
-	 *
-	 * @param url
-	 *            服务器地址
-	 * @param param
-	 *            参数
-	 * @return 服务器返回结果
-	 * @throws Exception
-	 */
-	public static String uploadSubmitFiles(String url, Map<String, String> param,
-			List<File> files,String key) throws Exception {
-		HttpPost post = new HttpPost(url);
-
-		MultipartEntity entity = new MultipartEntity();
-		if (param != null && !param.isEmpty()) {
-			for (Entry<String, String> entry : param.entrySet()) {
-				if (entry.getValue() != null
-						&& entry.getValue().trim().length() > 0) {
-					entity.addPart(entry.getKey(),
-							new StringBody(entry.getValue(),Charset.forName("UTF-8")));
-				}
-			}
-		}
-		// 添加文件参数
-		for(int i=0;i<files.size() ;i++){
-			if (files.get(i) != null && files.get(i).exists()) {
-				entity.addPart(key, new FileBody(files.get(i)));
-
-			}
-		}
-
-		post.setEntity(entity);
-		HttpClient httpClient = new DefaultHttpClient();//发送请求
-		HttpResponse response = httpClient.execute(post);
-		int stateCode = response.getStatusLine().getStatusCode();
-		StringBuffer sb = new StringBuffer();
-		if (stateCode == HttpStatus.SC_OK) {
-			HttpEntity result = response.getEntity();
-			if (result != null) {
-				InputStream is = result.getContent();
-				BufferedReader br = new BufferedReader(
-						new InputStreamReader(is));
-				String tempLine;
-				while ((tempLine = br.readLine()) != null) {
-					sb.append(tempLine);
-				}
-			}
-		}
-		post.abort();
-		LogUtil.d("" + url + "= " + sb.toString());
-		return sb.toString();
-	}
-
-	/**
-	 * 提交参数里有文件的数据
-	 * @param <MultipartEntity>
+	 * @param<MultipartEntity>
 	 *
 	 * @param url
 	 *            服务器地址
@@ -322,10 +217,7 @@ public class Httpclient2 {
 	public static String uploadSubmitFile2(String url, Map<String, Object> param,
 			File file,String key) throws Exception {
 		HttpPost post = new HttpPost(url);
-
-
 		MultipartEntity entity = new MultipartEntity();
-
 		if (param != null && !param.isEmpty()) {
 			for (Entry<String, Object> entry : param.entrySet()) {
 				if (entry.getValue() != null
@@ -338,7 +230,6 @@ public class Httpclient2 {
 		// 添加文件参数
 		if (file != null && file.exists()) {
 			entity.addPart(key, new FileBody(file));
-
 		}
 		post.setEntity(entity);
 		HttpClient httpClient = new DefaultHttpClient();//发送请求
@@ -358,12 +249,13 @@ public class Httpclient2 {
 			}
 		}
 		post.abort();
+        LogUtil.d("arg= " + new JSONObject(param).toString());
 		LogUtil.d("" + url + "= " + sb.toString());
 		return sb.toString();
 	}
 	/**
 	 * 提交参数里有文件的数据 多个文件
-	 * @param <MultipartEntity>
+	 * @param
 	 *
 	 * @param url
 	 *            服务器地址
@@ -375,7 +267,6 @@ public class Httpclient2 {
 	public static String uploadSubmitFiles2(String url, Map<String, Object> param,
 			List<File> files,String key) throws Exception {
 		HttpPost post = new HttpPost(url);
-
 		MultipartEntity entity = new MultipartEntity();
 		if (param != null && !param.isEmpty()) {
 			for (Entry<String, Object> entry : param.entrySet()) {
@@ -393,7 +284,6 @@ public class Httpclient2 {
 				
 			}
 		}
-		
 		post.setEntity(entity);
 		HttpClient httpClient = new DefaultHttpClient();//发送请求
 		HttpResponse response = httpClient.execute(post);
@@ -412,6 +302,7 @@ public class Httpclient2 {
 			}
 		}
 		post.abort();
+        LogUtil.d("arg= " + new JSONObject(param).toString());
 		LogUtil.d("" + url + "= " + sb.toString());
 		return sb.toString();
 	}

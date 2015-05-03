@@ -4,7 +4,6 @@ package com.base.feima.baseproject.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import com.base.feima.baseproject.task.BaseTask;
 import com.base.feima.baseproject.task.TaskManager;
@@ -15,7 +14,7 @@ public abstract class BaseFragment extends Fragment {
 	public String taskTag = "BaseFragment";//当前Fragment的线程标识
 	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
     public MFragmentsManager mFragmentsManager = MFragmentsManager.getFragmentManagerInstance();
-    public View rootView;
+
 
 	@Override
 	public void onAttach(Activity activity){
@@ -53,7 +52,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        rootView = null;
     }
 
     @Override

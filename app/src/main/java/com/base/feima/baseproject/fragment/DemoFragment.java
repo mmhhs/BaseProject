@@ -12,7 +12,7 @@ import com.base.feima.baseproject.base.BaseFragment;
 import butterknife.ButterKnife;
 
 public class DemoFragment extends BaseFragment{
-
+    public View rootView;
     public DemoFragment(){
 
     }

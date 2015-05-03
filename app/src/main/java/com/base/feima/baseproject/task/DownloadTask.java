@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.base.feima.baseproject.model.user.UserModel;
 import com.base.feima.baseproject.model.user.UserResult;
-import com.base.feima.baseproject.net.Httpclient2;
+import com.base.feima.baseproject.net.Httpclient;
 import com.base.feima.baseproject.tool.PublicTools;
 import com.base.feima.baseproject.util.JacksonUtil;
 import com.j256.ormlite.dao.Dao;
@@ -32,7 +32,7 @@ public class DownloadTask implements Runnable{
     	String result = null;
     	PublicTools.addLog("DownloadTask", "DownloadTask");
 		try {
-			result = Httpclient2.POSTMethod(httpUrl, argList);
+			result = Httpclient.POSTMethod(httpUrl, argList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

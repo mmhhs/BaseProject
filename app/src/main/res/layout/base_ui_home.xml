@@ -15,7 +15,6 @@
         android:layout_height="@dimen/navigation_bar_height_bottom"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        android:gravity="bottom"
         android:orientation="vertical" >
 
         <View
@@ -23,16 +22,17 @@
             android:layout_height="1dp"
             android:background="@color/navi_bottom_line" />
 
-        <RadioGroup
+        <LinearLayout
             android:id="@+id/base_ui_home_radiogroup"
             style="@style/base_footbar_radiogroup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom"
+            android:gravity="center_vertical"
             android:layout_marginTop="3dp"
             android:orientation="horizontal" >
 
-            <RadioButton
+            <TextView
                 android:id="@+id/base_ui_home_radio0"
                 style="@style/base_footbar_radio"
                 android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                 android:drawableTop="@drawable/base_tab0_on"
                 android:text="@string/navi_item1" />
 
-            <RadioButton
+            <TextView
                 android:id="@+id/base_ui_home_radio1"
                 style="@style/base_footbar_radio"
                 android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:drawableTop="@drawable/base_tab0_on"
                 android:text="@string/navi_item2" />
 
-            <RadioButton
+            <TextView
                 android:id="@+id/base_ui_home_radio2"
                 style="@style/base_footbar_radio"
                 android:layout_width="wrap_content"
@@ -59,24 +59,7 @@
                 android:drawableTop="@drawable/base_tab0_on"
                 android:text="@string/navi_item3" />
 
-            <RadioButton
-                android:id="@+id/base_ui_home_radio3"
-                style="@style/base_footbar_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:drawableTop="@drawable/base_tab0_on"
-                android:text="@string/navi_item4" />
-
-            <RadioButton
-                android:id="@+id/base_ui_home_radio4"
-                style="@style/base_footbar_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:drawableTop="@drawable/base_tab0_on"
-                android:text="@string/navi_item5" />
-        </RadioGroup>
+        </LinearLayout>
     </LinearLayout>
     <android.support.v4.app.FragmentTabHost
         android:id="@android:id/tabhost"

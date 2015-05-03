@@ -50,8 +50,8 @@ public class SingleViewPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(View view, int position) {
 		View convertView = null;		            
         convertView = LayoutInflater.from(context).inflate(R.layout.base_adapter_viewpager_welcome, null);
-        ImageView imgView = (ImageView) convertView.findViewById(R.id.adapter_wel_imageView1);
-        ImageButton imgButton = (ImageButton) convertView.findViewById(R.id.adapter_wel_imageButton1);
+        ImageView imgView = (ImageView) convertView.findViewById(R.id.base_adapter_wel_imageView);
+        ImageButton imgButton = (ImageButton) convertView.findViewById(R.id.base_adapter_wel_imageButton);
             
         imgView.setImageDrawable(context.getResources().getDrawable(list.get(position)));
         

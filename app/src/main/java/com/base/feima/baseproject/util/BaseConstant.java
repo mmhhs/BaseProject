@@ -1,5 +1,6 @@
 package com.base.feima.baseproject.util;
 
+import android.content.Context;
 import android.os.Environment;
 
 
@@ -14,18 +15,28 @@ public class BaseConstant
 		NOTHING
 	}
 	
-	public static final String IMAGETAMPPATH = Environment.getExternalStorageDirectory() + "/company/test/cache/tamp/";
-	public static final String IMAGESAVEPATH = Environment.getExternalStorageDirectory() + "/company/test/cache/image/";
-	public static final String IMAGETAMPFOLDER = "company/test/cache/tamp";
+	public static final String IMAGETAMPPATH = Environment.getExternalStorageDirectory() + "/company/base/cache/tamp/";
+	public static final String IMAGESAVEPATH = Environment.getExternalStorageDirectory() + "/company/base/cache/image/";
+	public static final String IMAGETAMPFOLDER = "/company/base/cache/tamp/";
+    public static final String IMAGESAVEFOLDER = "/company/base/cache/image/";
+
+    public static String getTampImageFolder(Context context){
+        return  context.getExternalCacheDir()+IMAGETAMPFOLDER;
+    }
+
+    public static String getSaveImageFolder(Context context){
+        return  context.getExternalCacheDir()+IMAGESAVEFOLDER;
+    }
 	
 	public final static int PAGER_START									=  1;
+    public final static int PAGER_COUNT									=  15;
 	
 	public final static int REQUEST_REFRESH									=  9999;
 	
 	
 	public static String INTENT_ID								=  "INTENT_ID";
 	public static String INTENT_TYPE								=  "INTENT_TYPE";
-	public static String INTENT_CHOOSE								=  "INTENT_CHOOSE";
+	public static String INTENT_CONTENT								=  "INTENT_CONTENT";
 	public static String INTENT_CLASS								=  "INTENT_CLASS";
 	
 	//real

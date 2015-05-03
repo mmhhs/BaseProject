@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.model.user.UserModel;
-import com.base.feima.baseproject.tool.PublicTools;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -76,7 +75,6 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		PublicTools.addLog(TAG,"更新数据库失败");
 	}
   	
     
@@ -89,12 +87,9 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper
 				
 				
 			  	onCreate(paramSQLiteDatabase, paramConnectionSource);
-			  	
-			  	
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				PublicTools.addLog("Result", "数据库更新失败");
 			}
 	  }
 	  

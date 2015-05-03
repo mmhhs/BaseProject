@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.model.ResultModel;
 import com.base.feima.baseproject.net.HttpUtil;
-import com.base.feima.baseproject.net.Httpclient2;
+import com.base.feima.baseproject.net.Httpclient;
 import com.base.feima.baseproject.tool.PublicTools;
 import com.base.feima.baseproject.tool.popupwindow.ViewTool;
 import com.base.feima.baseproject.tool.popupwindow.ViewTool.OnTryClickListener;
@@ -135,7 +135,7 @@ public class ShowLoadTask extends BaseTask<Void, String, TaskResult> {
 		switch (accessType) {
 		case POST:
 			try {
-				resultsString = Httpclient2.POSTMethod(httpUrl, argMap);
+				resultsString = Httpclient.POSTMethod(httpUrl, argMap);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -143,7 +143,7 @@ public class ShowLoadTask extends BaseTask<Void, String, TaskResult> {
 			break;
 		case PUT:
 			try {
-				resultsString = Httpclient2.PUTMethod(httpUrl, argMap);
+				resultsString = Httpclient.PUTMethod(httpUrl, argMap);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -151,7 +151,7 @@ public class ShowLoadTask extends BaseTask<Void, String, TaskResult> {
 			break;
 		case GET:
 			try {
-				resultsString = Httpclient2.GETMethod(httpUrl, argMap);
+				resultsString = Httpclient.GETMethod(httpUrl, argMap);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -159,7 +159,7 @@ public class ShowLoadTask extends BaseTask<Void, String, TaskResult> {
 			break;
 		case UPLOAD:
 			try {
-				resultsString = Httpclient2.uploadSubmitFile2(httpUrl, argMap, fileList.get(0), keyString);
+				resultsString = Httpclient.uploadSubmitFile2(httpUrl, argMap, fileList.get(0), keyString);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -167,7 +167,7 @@ public class ShowLoadTask extends BaseTask<Void, String, TaskResult> {
 			break;
 		case UPLOADS:
 			try {
-				resultsString = Httpclient2.uploadSubmitFiles2(httpUrl, argMap, fileList, keyString2);
+				resultsString = Httpclient.uploadSubmitFiles2(httpUrl, argMap, fileList, keyString2);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

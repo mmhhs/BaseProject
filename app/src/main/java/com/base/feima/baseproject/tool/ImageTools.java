@@ -241,17 +241,14 @@ public class ImageTools {
     			}   
     		} catch (FileNotFoundException e) {  
     			photoFile.delete();
-    			e.printStackTrace();  
-    			PublicTools.addLog(tag, "filenotfound="+e);
+    			e.printStackTrace();
     			result =  false;
     		} catch (IOException e) {  
     			photoFile.delete();
-    			e.printStackTrace();   
-    			PublicTools.addLog(tag, "io="+e);
+    			e.printStackTrace();
     			result =  false;
     		}catch (Exception e){
-    			e.printStackTrace();   
-    			PublicTools.addLog(tag, "exception="+e);
+    			e.printStackTrace();
     			result =   false;
     		}
     		result = true;

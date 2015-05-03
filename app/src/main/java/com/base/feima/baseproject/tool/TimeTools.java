@@ -77,7 +77,6 @@ public class TimeTools {
 	public static String formatServiceTime2(String time) {
         String result = "";
         try {
-        	PublicTools.addLog("tag", "" + time);
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         	 long loc_time = Long.valueOf(time);
         	 result = sdf.format(new Date(loc_time*1000));
