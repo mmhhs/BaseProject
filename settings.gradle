@@ -1,1 +1,1 @@
-include ':app', ':ultimaterecyclerview'
+include ':app'
