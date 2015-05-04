@@ -35,7 +35,7 @@ import com.base.feima.baseproject.R;
  * Class used internally by {@link } to show a determinate
  * progress indicator. Two display modes are supported "wheel" and "pie"
  */
-class PieProgress extends View {
+public class PieProgress extends View {
 	private final RectF mRect = new RectF();
 	private final RectF mRectInner = new RectF();
 	private final Paint mPaintForeground = new Paint();
