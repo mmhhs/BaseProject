@@ -1,7 +1,6 @@
 package com.base.feima.baseproject.view;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -80,20 +79,9 @@ public class TitleBarWeightView extends LinearLayout {
 		TitleItem titleItem = titleItemList.get(position);
 		TextView textView = new TextView(context);
 		textView.setLayoutParams(defaultTabLayoutParams);
-		textView.setBackground(titleItem.getBackground());
+		textView.setBackgroundResource(titleItem.getBackgroundResourseId());
 		textView.setText(titleItem.getName());
-		if(titleItem.getWidth()>0){
-			int w = dip2px(context, titleItem.getWidth());
-			textView.setWidth(w);
-		}
-		if(titleItem.getHeigh()>0){
-			int h = dip2px(context, titleItem.getHeigh());
-			textView.setHeight(h);
-		}
-//		
 		textView.setGravity(Gravity.CENTER);
-//		textView.setTextSize(titleItem.getTextSize());
-//		textView.setTextColor(titleItem.getTextColor());
 		textView.setTextAppearance(context, titleItem.getTextStyle());
 		textView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -103,7 +91,6 @@ public class TitleBarWeightView extends LinearLayout {
 					setItemStatus(position);
 					setPager(position);
 				}
-
 			}
 
 		});
@@ -162,13 +149,6 @@ public class TitleBarWeightView extends LinearLayout {
 		public void onPageScrollStateChanged(int state) {
 			// TODO Auto-generated method stub
 
-//			if (state == ViewPager.SCROLL_STATE_IDLE) {
-//				if (moveAble) {
-//					setItemStatus(pager.getCurrentItem());
-//					doOnChangeListener(pager.getCurrentItem());
-//				}
-//
-//			}
 		}
 
 		@Override
@@ -205,78 +185,38 @@ public class TitleBarWeightView extends LinearLayout {
 	}
 
 	public static class TitleItem {
-		public String name;
-		public int width;
-		public int heigh;
-		public Drawable background;
-		public int textColor;
-		public float textSize;
-		public int textStyle;
+        public String name;
+        public int textStyle;
+        public int backgroundResourseId;
 
 		public TitleItem() {
 
 		}
 
-		
-		public int getTextStyle() {
-			return textStyle;
-		}
+        public String getName() {
+            return name;
+        }
 
+        public void setName(String name) {
+            this.name = name;
+        }
 
-		public void setTextStyle(int textStyle) {
-			this.textStyle = textStyle;
-		}
+        public int getTextStyle() {
+            return textStyle;
+        }
 
+        public void setTextStyle(int textStyle) {
+            this.textStyle = textStyle;
+        }
 
-		public String getName() {
-			return name;
-		}
+        public int getBackgroundResourseId() {
+            return backgroundResourseId;
+        }
 
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public int getWidth() {
-			return width;
-		}
-
-		public void setWidth(int width) {
-			this.width = width;
-		}
-
-		public int getHeigh() {
-			return heigh;
-		}
-
-		public void setHeigh(int heigh) {
-			this.heigh = heigh;
-		}
-
-		public Drawable getBackground() {
-			return background;
-		}
-
-		public void setBackground(Drawable background) {
-			this.background = background;
-		}
-
-		public int getTextColor() {
-			return textColor;
-		}
-
-		public void setTextColor(int textColor) {
-			this.textColor = textColor;
-		}
-
-		public float getTextSize() {
-			return textSize;
-		}
-
-		public void setTextSize(float textSize) {
-			this.textSize = textSize;
-		}
-
-	}
+        public void setBackgroundResourseId(int backgroundResourseId) {
+            this.backgroundResourseId = backgroundResourseId;
+        }
+    }
 	
 	public interface OnChangeListener {
 		  public void   onClick(int position);

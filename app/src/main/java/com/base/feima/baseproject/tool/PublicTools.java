@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build.VERSION;
-import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.view.Window;
@@ -438,31 +437,6 @@ public class PublicTools{
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		}
-	}
-
-	
-	public static void delete(File file) {
-		if (file.isFile()) {
-			File sdCard=Environment.getExternalStorageDirectory() ;			
-			File to=new File(sdCard,"to.jpg") ;
-			file.renameTo(to) ;
-			file.delete();
-			return;
-		}
-		if (file.isDirectory()) {
-			File[] childFiles = file.listFiles();
-			if (childFiles == null || childFiles.length == 0) {
-				File sdCard=Environment.getExternalStorageDirectory() ;			
-				File to=new File(sdCard,"to.jpg") ;
-				file.renameTo(to) ;
-				file.delete();
-				return;
-			}
-			for (int i = 0; i < childFiles.length; i++) {
-				delete(childFiles[i]);
-			}
-			file.delete();
 		}
 	}
 	

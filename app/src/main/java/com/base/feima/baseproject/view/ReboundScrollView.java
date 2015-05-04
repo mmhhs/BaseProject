@@ -45,6 +45,8 @@ public class ReboundScrollView extends ScrollView {
 	//在手指滑动的过程中记录是否移动了布局
 	private boolean isMoved = false;
 
+    private int limitHeight = 200;
+
 	public ReboundScrollView(Context context) {
 		super(context);
 	}
@@ -145,12 +147,14 @@ public class ReboundScrollView extends ScrollView {
 				
 				//计算偏移量
 				int offset = (int)(deltaY * MOVE_FACTOR);
-				
-				//随着手指的移动而移动布局
-				contentView.layout(originalRect.left, originalRect.top + offset,
-						originalRect.right, originalRect.bottom + offset);
-				
-				isMoved = true;  //记录移动了布局
+				if (offset<limitHeight){
+                    //随着手指的移动而移动布局
+                    contentView.layout(originalRect.left, originalRect.top + offset,
+                            originalRect.right, originalRect.bottom + offset);
+
+                    isMoved = true;  //记录移动了布局
+                }
+
 			}
 			
 			break;

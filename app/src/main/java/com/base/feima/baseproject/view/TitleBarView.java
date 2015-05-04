@@ -2,7 +2,6 @@ package com.base.feima.baseproject.view;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -22,7 +21,7 @@ public class TitleBarView extends LinearLayout{
 	public OnPageChangeListener delegatePageListener;
 	private ViewPager pager;
 	private List<ImageButton> imageButtonList = new ArrayList<ImageButton>();
-	private List<Drawable> drawableList;
+	private List<Integer> drawableList;
 	private LayoutParams defaultTabLayoutParams;
 	private Context context;
 	private boolean moveAble = true;
@@ -52,7 +51,7 @@ public class TitleBarView extends LinearLayout{
 		defaultTabLayoutParams.gravity = Gravity.CENTER_VERTICAL;
 	}
 	
-	public void init(Context context,List<Drawable> drawableList,ViewPager pager,int index){
+	public void init(Context context,List<Integer> drawableList,ViewPager pager,int index){
 		this.context = context;
 		this.drawableList = drawableList;
 		setViewPager(pager);
@@ -73,7 +72,7 @@ public class TitleBarView extends LinearLayout{
 	
 	private void addImageButton(final int position){
 		ImageButton imageButton = new ImageButton(context);
-		imageButton.setBackground(drawableList.get(position));
+		imageButton.setBackgroundResource(drawableList.get(position));
 		imageButton.setLayoutParams(defaultTabLayoutParams);		
 		imageButton.setSelected(false);
 		imageButton.setOnClickListener(new OnClickListener(){
@@ -149,15 +148,7 @@ public class TitleBarView extends LinearLayout{
 		@Override
 		public void onPageScrollStateChanged(int state) {
 			// TODO Auto-generated method stub
-			
-//			if (state == ViewPager.SCROLL_STATE_IDLE) {
-//				if(moveAble){
-//					setImageButtonStatus(pager.getCurrentItem());
-//					doOnChangeListener(pager.getCurrentItem());
-//					PublicTools.addLog(TAGS, "pager= "+pager.getCurrentItem());
-//				}
-//				
-//			}
+
 		}
 
 		@Override
