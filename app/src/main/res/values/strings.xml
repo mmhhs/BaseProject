@@ -29,6 +29,8 @@
     <string name="dialog_item2">取消</string>
     <string name="dialog_item4">您确定拨打电话吗？</string>
     <string name="dialog_item5">您还没有登录，请先登录吧</string>
+    <string name="dialog_item6">检查更新</string>
+    <string name="dialog_item7">您当前有新版本，是否更新？</string>
     <!-- pulltorefreshlayout -->
     <string name="pull_to_refresh">下拉刷新</string>
     <string name="release_to_refresh">释放立即刷新</string>

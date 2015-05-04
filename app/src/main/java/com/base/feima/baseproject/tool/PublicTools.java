@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,14 +25,10 @@ import com.base.feima.baseproject.util.BaseConstant;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 public class PublicTools{
 	public static String tag = "PublicTools";
-	/**
-	 * 开发模式设置
-	 */
-	public static boolean DEVELOPER_MODE = true;
-	
 
 
     /**
@@ -171,37 +166,55 @@ public class PublicTools{
             }
         }, delay);
     }
-	
-	/**
-	 * 保留一位小数
-	 * @param num
-	 * @return
-	 */
-	public static double storeOnePosition(double num){
-		double result = 3.0;
+
+    /**
+     * 保留digit位小数 方式1
+     * @param num 目标数字
+     * @param digit 几位小数
+     * @return
+     */
+	public static double storePoint(double num,int digit){
+		double result = 0;
 		try{
-			BigDecimal bd = new BigDecimal(num);
-			bd.setScale(1,BigDecimal.ROUND_HALF_DOWN);
+            BigDecimal bd = new BigDecimal(num);
+            bd = bd.setScale(digit,BigDecimal.ROUND_HALF_UP);
 			result = bd.doubleValue();
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			return result;
 		}
-		
 	}
+
+    /**
+     * 保留digit位小数 方式1
+     * @param num 目标数字
+     * @param digit 几位小数
+     * @return
+     */
+    public static String storePointString(double num,int digit){
+        String result = "";
+        try{
+            BigDecimal bd = new BigDecimal(num);
+            bd = bd.setScale(digit,BigDecimal.ROUND_HALF_UP);
+            result = String.valueOf(bd.doubleValue());
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            return result;
+        }
+    }
 	
 	/**
-	 * 保留2位小数
+	 * 保留2位小数 方式2
 	 * @param num
 	 * @return
 	 */
-	public static String storeTwoPosition(double num){
-		String result = "0.01";
+	public static String storePoint2(double num){
+		String result = "";
 		try{
 			java.text.DecimalFormat   df   =new   java.text.DecimalFormat("#0.00");
 			result = df.format(num);
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
@@ -209,45 +222,56 @@ public class PublicTools{
 		}
 		
 	}
-	
-	/**
-	 * double转字符串
-	 * @param num
-	 * @return
-	 */
-	public static String doubleToString(double num){
-		String result = "";
-		try{
-			BigDecimal bd = new BigDecimal(num);
-			bd.setScale(0,BigDecimal.ROUND_HALF_DOWN);
-			result = bd.toString();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			return result;
-		}
-		
-	}
-	
-	/**
-	 * 保留一位小数
-	 * @param num
-	 * @return
-	 */
-	public static float formatApprise(String num){
-		float result = 3.0f;
-		try{
-			double nums = Double.parseDouble(num);
-			BigDecimal bd = new BigDecimal(nums);
-			bd.setScale(1,BigDecimal.ROUND_HALF_DOWN);
-			result = bd.floatValue();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			return result;
-		}
-		
-	}
+
+    /**
+     * 保留小数 方式3
+     * @param num
+     * @param digit
+     * @return
+     */
+    public static String storePoint3(double num,int digit){
+        String result = "";
+        try{
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            nf.setMaximumFractionDigits(digit);
+            result = nf.format(num);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            return result;
+        }
+
+    }
+
+    /**
+     * 将每三个数字加上逗号处理（通常使用金额方面的编辑）
+     */
+    public static String formatMoney(String money){
+        String result = "";
+        try {
+            String[] strs = money.split("\\.");
+            String reverseStr = new StringBuilder(strs[0]).reverse().toString();
+            String strTemp = "";
+            for (int i=0; i<reverseStr.length(); i++) {
+                if (i*3+3 > reverseStr.length()){
+                    strTemp += reverseStr.substring(i*3,reverseStr.length());
+                    break;
+                }
+                strTemp += reverseStr.substring(i*3, i*3+3)+",";
+            }
+            if (strTemp.endsWith(",")) {
+                strTemp = strTemp.substring(0, strTemp.length()-1);
+            }
+            result = new StringBuilder(strTemp).reverse().toString();
+            if (strs.length>1){
+                result+= "."+strs[1];
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            return result;
+        }
+    }
 	
 	/**
 	 * 获取状态栏高度
@@ -295,50 +319,28 @@ public class PublicTools{
 		int screenHeight = activity.getResources().getDisplayMetrics().heightPixels;
 		return screenHeight;
 	}
-	
 
-//	public static void WriteTxtFile(String strcontent,String strFilePath)
-//    {
-//      //每次写入时，都换行写
-//      String strContent=strcontent+"\n";
-//      try {
-//           File file = new File(strFilePath);
-//           if (!file.exists()) {
-//            Log.d("TestFile", "Create the file:" + strFilePath);
-//            file.createNewFile();
-//           }
-//           RandomAccessFile raf = new RandomAccessFile(file, "rw");
-//           raf.seek(file.length());
-//           raf.write(strContent.getBytes());
-//           raf.close();
-//           Log.e("TestFile", "success on write File.");
-//      } catch (Exception e) {
-//           Log.e("TestFile", "Error on write File.");
-//          }
-//    }
-//	
+
+    /**
+     * 将z字符串存在文件里
+     * @param message
+     * @param fileName
+     */
 	public static void writeFileSdcard(String message, String fileName) { 
 		 
         try { 
         	String messages=message+"\n";
-            // FileOutputStream fout = openFileOutput(fileName, MODE_PRIVATE); 
         	 File file = new File(fileName);
              if (!file.exists()) {
-              Log.d("TestFile", "Create the file:" + fileName);
               file.createNewFile();
              }
-            FileOutputStream fout = new FileOutputStream(fileName); 
- 
-            byte[] bytes = messages.getBytes(); 
- 
-            fout.write(bytes); 
- 
-            fout.close(); 
-            Log.e("TestFile", "success on write File.");
+            FileOutputStream fout = new FileOutputStream(fileName);
+            byte[] bytes = messages.getBytes();
+            fout.write(bytes);
+            fout.close();
         } 
  
-        catch (Exception e) { 
-        	Log.e("TestFile", "Error on write File.");
+        catch (Exception e) {
             e.printStackTrace(); 
  
         }  
@@ -473,22 +475,7 @@ public class PublicTools{
 		return sysVersion;
 	}
 	
-	
-	
-//	/**
-//	 * 关闭上拉加载和下拉刷新效果
-//	 * @param pullToRefreshView
-//	 */
-//	public static void stopRefresh(PullToRefreshView pullToRefreshView) {
-//		try {
-//			if (pullToRefreshView!=null) {
-//				pullToRefreshView.onHeaderRefreshComplete();
-//				pullToRefreshView.onFooterRefreshComplete();
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+
 	
 	/**
 	 * 获取头像正确路径
@@ -540,5 +527,18 @@ public class PublicTools{
 	    }
 	    return name;
 	}
+
+    /**
+     * 浏览器打开网页
+     * @param context
+     * @param url
+     */
+    public static void openBrowser(Context context,String url){
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri content_url = Uri.parse(url);
+        intent.setData(content_url);
+        context.startActivity(intent);
+    }
 
 }

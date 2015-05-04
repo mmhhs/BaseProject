@@ -13,7 +13,15 @@ import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.base.BaseFragmentActivity;
 import com.base.feima.baseproject.fragment.MenuFragment;
 import com.base.feima.baseproject.fragment.TestFragment;
+import com.base.feima.baseproject.model.ResultModel;
+import com.base.feima.baseproject.task.ShowDialogTask;
+import com.base.feima.baseproject.tool.EncryTools;
+import com.base.feima.baseproject.tool.PublicTools;
+import com.base.feima.baseproject.tool.popupwindow.PopupwindowTool;
 import com.base.feima.baseproject.util.BaseConstant;
+import com.base.feima.baseproject.util.JacksonUtil;
+
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -28,7 +36,8 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
     public TextView naviText1;
     @InjectView(R.id.base_ui_home_radio2)
     public TextView naviText2;
-    int tabFlag = 0;
+    public int tabFlag = 0;
+    public String updateUrl = "";
 
 	private final Class[] fragments = { MenuFragment.class, MenuFragment.class,
 			TestFragment.class };
@@ -113,6 +122,51 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
                 break;
         }
     }
-    
+
+    public void setCheckVersion(){
+        String httpUrl = BaseConstant.SERVICE_HOST_IP_LAN+BaseConstant.VERSION;
+        Map<String,Object> argMap = EncryTools.getEncryMap();
+        ShowDialogTask task = new ShowDialogTask(this,taskTag,naviText0,getString(R.string.dialog_item6),true,httpUrl,argMap,ShowDialogTask.POST);
+        task.setOnBackgroundListener(new ShowDialogTask.OnBackgroundListener() {
+            @Override
+            public BaseConstant.TaskResult onBackground(ShowDialogTask showDialogTask) {
+                BaseConstant.TaskResult taskResult = BaseConstant.TaskResult.NOTHING;
+                JacksonUtil json = JacksonUtil.getInstance();
+                ResultModel res = json.readValue(showDialogTask.getResultsString(), ResultModel.class);//解析需要等接口确定后更改
+                if(res!=null){
+                    if(PublicTools.judgeResult(BaseHomeTabActivity.this, res.getResult())){
+                        taskResult = BaseConstant.TaskResult.OK;
+
+                    }else{
+                        taskResult = BaseConstant.TaskResult.ERROR;
+                        showDialogTask.setErrorMsg(res.getResult());
+                    }
+                }else{
+                    taskResult = BaseConstant.TaskResult.CANCELLED;
+                }
+                return taskResult;
+            }
+        });
+        task.setOnOKListener(new ShowDialogTask.OnOKListener() {
+            @Override
+            public void onOK(ShowDialogTask showDialogTask) {
+                PopupwindowTool popupwindowTool = new PopupwindowTool();
+                popupwindowTool.showSureWindow(BaseHomeTabActivity.this, naviText0, getString(R.string.dialog_item6), getString(R.string.dialog_item7), true, true, false, 0);
+                popupwindowTool.setOnSureClickListener(new PopupwindowTool.OnSureClickListener() {
+                    @Override
+                    public void onClick(int position) {
+                        PublicTools.openBrowser(BaseHomeTabActivity.this,updateUrl);
+                    }
+                });
+            }
+        });
+        task.setOnERRORListener(new ShowDialogTask.OnErrorListener() {
+            @Override
+            public void onError(ShowDialogTask showDialogTask) {
+                PublicTools.addToast(BaseHomeTabActivity.this,showDialogTask.getErrorMsg());
+            }
+        });
+        task.execute();
+    }
       
 }
