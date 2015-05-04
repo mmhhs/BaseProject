@@ -30,7 +30,6 @@ public class DownloadTask implements Runnable{
     @Override  
     public void run() {  
     	String result = null;
-    	PublicTools.addLog("DownloadTask", "DownloadTask");
 		try {
 			result = Httpclient.POSTMethod(httpUrl, argList);
 		} catch (Exception e) {
