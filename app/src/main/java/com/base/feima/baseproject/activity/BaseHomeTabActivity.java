@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.base.BaseFragmentActivity;
-import com.base.feima.baseproject.fragment.MenuFragment;
-import com.base.feima.baseproject.fragment.TestFragment;
+
+import com.base.feima.baseproject.fragment.DemoFragment;
 import com.base.feima.baseproject.model.ResultModel;
 import com.base.feima.baseproject.task.ShowDialogTask;
 import com.base.feima.baseproject.tool.EncryTools;
@@ -39,8 +39,8 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
     public int tabFlag = 0;
     public String updateUrl = "";
 
-	private final Class[] fragments = { MenuFragment.class, MenuFragment.class,
-			TestFragment.class };
+	private final Class[] fragments = { DemoFragment.class, DemoFragment.class,
+            DemoFragment.class };
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {

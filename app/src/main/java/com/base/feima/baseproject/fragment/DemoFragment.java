@@ -25,6 +25,7 @@ public class DemoFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        setTaskTag(getClass().getSimpleName());
         if (rootView == null)
         {
             rootView = inflater.inflate(R.layout.sample,null);

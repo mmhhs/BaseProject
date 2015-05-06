@@ -1,15 +1,10 @@
 package com.base.feima.baseproject.model.user;
 
 
-public class UserResult {
-	public int result;
+import com.base.feima.baseproject.model.ResultModel;
+
+public class UserResult extends ResultModel{
 	public UserModel data;
-	public int getResult() {
-		return result;
-	}
-	public void setResult(int result) {
-		this.result = result;
-	}
 	public UserModel getData() {
 		return data;
 	}

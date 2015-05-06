@@ -320,7 +320,7 @@ public class Httpclient {
      * 保存Cookie
      * @param httpResponse
      */
-    public static void SaveCookies(HttpResponse httpResponse)
+    private static void SaveCookies(HttpResponse httpResponse)
     {
         Header[] headers = httpResponse.getHeaders("Set-Cookie");
         String headerstr=headers.toString();
@@ -345,7 +345,7 @@ public class Httpclient {
      * 增加Get Cookie
      * @param request
      */
-    public static void AddGetCookies(HttpGet request)
+    private static void addGetCookies(HttpGet request)
     {
         StringBuilder sb = new StringBuilder();
         Iterator iter = cookieContiner.entrySet().iterator();
@@ -365,7 +365,7 @@ public class Httpclient {
      * 增加Post Cookie
      * @param request
      */
-    public static void AddPostCookies(HttpPost request)
+    private static void addPostCookies(HttpPost request)
     {
         StringBuilder sb = new StringBuilder();
         Iterator iter = cookieContiner.entrySet().iterator();
@@ -385,7 +385,7 @@ public class Httpclient {
      * 增加Put Cookie
      * @param request
      */
-    public static void AddPutCookies(HttpPut request)
+    private static void addPutCookies(HttpPut request)
     {
         StringBuilder sb = new StringBuilder();
         Iterator iter = cookieContiner.entrySet().iterator();
