@@ -2,6 +2,7 @@ package com.base.feima.baseproject.net;
 
 import com.base.feima.baseproject.util.LogUtil;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -26,6 +27,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -306,5 +308,97 @@ public class Httpclient {
 		LogUtil.d("" + url + "= " + sb.toString());
 		return sb.toString();
 	}
+
+    /**
+     * cookie容器
+     * 当服务器需要设置session时，别忘了给请求设置cookie以及保存cookie
+     *
+     */
+    private static HashMap<String,String> cookieContiner =new HashMap<String,String>() ;
+
+    /**
+     * 保存Cookie
+     * @param httpResponse
+     */
+    public static void SaveCookies(HttpResponse httpResponse)
+    {
+        Header[] headers = httpResponse.getHeaders("Set-Cookie");
+        String headerstr=headers.toString();
+        if (headers == null)
+            return;
+
+        for(int i=0;i<headers.length;i++)
+        {
+            String cookie=headers[i].getValue();
+            String[]cookievalues=cookie.split(";");
+            for(int j=0;j<cookievalues.length;j++)
+            {
+                String[] keyPair=cookievalues[j].split("=");
+                String key=keyPair[0].trim();
+                String value=keyPair.length>1?keyPair[1].trim():"";
+                cookieContiner.put(key, value);
+            }
+        }
+    }
+
+    /**
+     * 增加Get Cookie
+     * @param request
+     */
+    public static void AddGetCookies(HttpGet request)
+    {
+        StringBuilder sb = new StringBuilder();
+        Iterator iter = cookieContiner.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String key = entry.getKey().toString();
+            String val = entry.getValue().toString();
+            sb.append(key);
+            sb.append("=");
+            sb.append(val);
+            sb.append(";");
+        }
+        request.addHeader("cookie", sb.toString());
+    }
+
+    /**
+     * 增加Post Cookie
+     * @param request
+     */
+    public static void AddPostCookies(HttpPost request)
+    {
+        StringBuilder sb = new StringBuilder();
+        Iterator iter = cookieContiner.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String key = entry.getKey().toString();
+            String val = entry.getValue().toString();
+            sb.append(key);
+            sb.append("=");
+            sb.append(val);
+            sb.append(";");
+        }
+        request.addHeader("cookie", sb.toString());
+    }
+
+    /**
+     * 增加Put Cookie
+     * @param request
+     */
+    public static void AddPutCookies(HttpPut request)
+    {
+        StringBuilder sb = new StringBuilder();
+        Iterator iter = cookieContiner.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String key = entry.getKey().toString();
+            String val = entry.getValue().toString();
+            sb.append(key);
+            sb.append("=");
+            sb.append(val);
+            sb.append(";");
+        }
+        request.addHeader("cookie", sb.toString());
+    }
 	
 }
