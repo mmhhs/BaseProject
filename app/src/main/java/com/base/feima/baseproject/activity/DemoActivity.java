@@ -11,6 +11,7 @@ public class DemoActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        setTaskTag(getClass().getSimpleName());
 		setContentView(R.layout.base_fragment_welcome);
 	}
 

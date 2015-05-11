@@ -41,6 +41,7 @@ public class WelcomeActivity extends BaseFragmentActivity {
 	        finish(); 
 	        return; 
 	    }
+        setTaskTag(getClass().getSimpleName());
 		setContentView(R.layout.base_ui_welcome);
 	}
 

@@ -45,11 +45,11 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTaskTag(getLocalClassName());
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
 	        return; 
-	    } 
+	    }
+        setTaskTag(getClass().getSimpleName());
         setContentView(R.layout.base_ui_home);
     }
        
