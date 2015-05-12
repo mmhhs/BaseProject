@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.PopupWindow;
 
 import com.base.feima.baseproject.R;
+import com.base.feima.baseproject.manager.TaskManager;
 import com.base.feima.baseproject.model.ResultModel;
 import com.base.feima.baseproject.net.HttpUtil;
 import com.base.feima.baseproject.net.Httpclient;

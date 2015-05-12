@@ -15,17 +15,24 @@ public class BaseConstant
 		NOTHING
 	}
 	
-	public static final String IMAGETAMPPATH = Environment.getExternalStorageDirectory() + "/company/base/cache/tamp/";
-	public static final String IMAGESAVEPATH = Environment.getExternalStorageDirectory() + "/company/base/cache/image/";
-	public static final String IMAGETAMPFOLDER = "/company/base/cache/tamp/";
-    public static final String IMAGESAVEFOLDER = "/company/base/cache/image/";
-
-    public static String getTampImageFolder(Context context){
-        return  context.getExternalCacheDir()+IMAGETAMPFOLDER;
-    }
+	public static String IMAGETAMPPATH = Environment.getExternalStorageDirectory() + "/company/base/cache/tamp/";
+	public static String IMAGESAVEPATH = Environment.getExternalStorageDirectory() + "/company/base/cache/image/";
+	public static String IMAGETAMPFOLDER = "/company/base/cache/tamp/";
+    public static String IMAGESAVEFOLDER = "/company/base/cache/image/";
 
     public static String getSaveImageFolder(Context context){
-        return  context.getExternalCacheDir()+IMAGESAVEFOLDER;
+        IMAGESAVEPATH = context.getExternalCacheDir()+IMAGESAVEFOLDER;
+        return  IMAGESAVEPATH;
+    }
+
+    public static String getTampImageFolder(Context context){
+        IMAGETAMPPATH = context.getExternalCacheDir()+IMAGETAMPFOLDER;
+        return  IMAGETAMPPATH;
+    }
+
+    public static void initImagePath(Context context){
+        getSaveImageFolder(context);
+        getTampImageFolder(context);
     }
 	
 	public final static int PAGER_START									=  1;

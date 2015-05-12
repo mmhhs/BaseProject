@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.base.feima.baseproject.R;
 import com.base.feima.baseproject.task.BaseTask;
-import com.base.feima.baseproject.task.TaskManager;
-import com.base.feima.baseproject.util.ScreenManager;
+import com.base.feima.baseproject.manager.TaskManager;
+import com.base.feima.baseproject.manager.ScreenManager;
 import com.widget.slidingmenu.lib.SlidingMenu;
 import com.widget.slidingmenu.lib.app.SlidingFragmentActivity;
 

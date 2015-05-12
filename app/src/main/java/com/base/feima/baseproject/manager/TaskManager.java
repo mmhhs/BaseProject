@@ -1,4 +1,6 @@
-package com.base.feima.baseproject.task;
+package com.base.feima.baseproject.manager;
+
+import com.base.feima.baseproject.task.BaseTask;
 
 import java.util.ArrayList;
 import java.util.List;

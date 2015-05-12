@@ -35,22 +35,21 @@ public class ImageChooseTools implements Serializable{
 	public static final int PHOTO_WITH_CAMERA = 116;	
 	public static final int CHOOSE_PICTURE = 117;
 	public static final int PHOTO_PICKED_WITH_CROP = 118;
-	public static final int ScaleWidth = 720;
-	public static final int ScaleHeight = 1280;
-	private static  String imagePath = "";
+	public static final int SCALE_WIDTH = 720;
+	public static final int SCALE_HEIGHT = 1280;
+	private static  String imagePathFolder = BaseConstant.IMAGETAMPPATH;
 	private static Uri imageUri;
 	private  String imageUrl = "";
 	
 	public ImageChooseTools(){
-		File dir = new File(imagePath);
+		File dir = new File(imagePathFolder);
 		if(!dir.exists()){
 			dir.mkdirs();
 		}
 	}
 
 	public ImageChooseTools(Activity context){
-        imagePath = BaseConstant.getTampImageFolder(context);
-		File dir = new File(imagePath);
+		File dir = new File(imagePathFolder);
 		if(!dir.exists()){
 			dir.mkdirs();
 		}
@@ -90,7 +89,7 @@ public class ImageChooseTools implements Serializable{
 			Intent intent = new Intent();
 			intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE); //  MediaStore.ACTION_IMAGE_CAPTURE
 			intent.putExtra("return-data", true); // 有返回值
-			imageUrl = imagePath+""+"image2.jpg";
+			imageUrl = imagePathFolder +""+"image2.jpg";
 			imageUri = Uri.fromFile(new File(imageUrl));
 			// 指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -109,7 +108,7 @@ public class ImageChooseTools implements Serializable{
 			Intent intent = new Intent();
 			intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE); 
 			intent.putExtra("return-data", true); // 有返回值
-			imageUrl = imagePath+""+System.currentTimeMillis()+"image2.jpg";
+			imageUrl = imagePathFolder +""+System.currentTimeMillis()+"image2.jpg";
 			imageUri = Uri.fromFile(new File(imageUrl));
 			// 指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -296,8 +295,8 @@ public class ImageChooseTools implements Serializable{
     		if(!sdCardExist()||path.equals("")){
     			return "";
     		}		
-    		fileSavePath = imagePath+time+".jpg";
-    		File folder = new File(imagePath);
+    		fileSavePath = imagePathFolder +time+".jpg";
+    		File folder = new File(imagePathFolder);
     		if(!folder.exists()){
     			folder.mkdirs();
     		}		
@@ -348,10 +347,10 @@ public class ImageChooseTools implements Serializable{
 	private static int caculateInSampleSize(int width,int height){
 		int be = 1;//be=1表示不缩放
     	try {
-    		if (width > height && height > ScaleWidth) {//如果宽度大的话根据宽度固定大小缩放
-                be = (int) (width / ScaleWidth);
-            } else if (width < height && height > ScaleHeight) {//如果高度高的话根据宽度固定大小缩放
-                be = (int) (height / ScaleHeight);
+    		if (width > height && height > SCALE_WIDTH) {//如果宽度大的话根据宽度固定大小缩放
+                be = (int) (width / SCALE_WIDTH);
+            } else if (width < height && height > SCALE_HEIGHT) {//如果高度高的话根据宽度固定大小缩放
+                be = (int) (height / SCALE_HEIGHT);
             }
     		if(be<=1){
     			be = 1; 

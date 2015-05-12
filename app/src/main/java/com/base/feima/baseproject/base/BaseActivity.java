@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.base.feima.baseproject.task.BaseTask;
-import com.base.feima.baseproject.task.TaskManager;
-import com.base.feima.baseproject.util.ScreenManager;
+import com.base.feima.baseproject.manager.TaskManager;
+import com.base.feima.baseproject.manager.ScreenManager;
 
 import butterknife.ButterKnife;
 

@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.base.feima.baseproject.task.BaseTask;
-import com.base.feima.baseproject.task.TaskManager;
-import com.base.feima.baseproject.util.MFragmentsManager;
+import com.base.feima.baseproject.manager.TaskManager;
+import com.base.feima.baseproject.manager.MFragmentsManager;
 
 
 public abstract class BaseFragment extends Fragment {

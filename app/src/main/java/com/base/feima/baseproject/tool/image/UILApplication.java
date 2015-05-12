@@ -54,14 +54,15 @@ public class UILApplication extends Application {
 		}
 
 		super.onCreate();
-
+        //³õÊ¼»¯´æ´¢Í¼Æ¬Â·¾¶
+        BaseConstant.initImagePath(getApplicationContext());
 		initImageLoader(getApplicationContext());
 	}
 
 	public static void initImageLoader(Context context) {
 		int maxImageWidthForMemoryCache = 720;
 		int maxImageHeightForMemoryCache = 1280;
-		String imgDiscCache = BaseConstant.getSaveImageFolder(context);
+		String imgDiscCache = BaseConstant.IMAGESAVEPATH;
 		File cacheDir = null ;
 		BitmapProcessor bitmapProcessor = null;
 		

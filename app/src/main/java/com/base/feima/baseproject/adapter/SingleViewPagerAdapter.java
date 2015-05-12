@@ -1,4 +1,4 @@
-package com.base.feima.baseproject.activity.welcome;
+package com.base.feima.baseproject.adapter;
 
 
 // add by liumy  2013 7-19

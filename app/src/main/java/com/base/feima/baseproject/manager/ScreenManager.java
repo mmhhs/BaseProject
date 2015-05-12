@@ -1,4 +1,4 @@
-package com.base.feima.baseproject.util;
+package com.base.feima.baseproject.manager;
 
 import android.app.Activity;
 

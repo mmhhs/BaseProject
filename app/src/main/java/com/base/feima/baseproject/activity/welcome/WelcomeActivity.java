@@ -26,8 +26,6 @@ public class WelcomeActivity extends BaseFragmentActivity {
     public ImageView imageView ;
     @InjectView(R.id.base_ui_welcome_fragmentRoot)
     public LinearLayout proLinear;
-	private String userId;
-	private Boolean isLogin = false;
 	private Handler handler;
     private Timer timer;
 	
@@ -59,6 +57,32 @@ public class WelcomeActivity extends BaseFragmentActivity {
 
     @Override
     public void initView() {
+
+    }
+
+    @Override
+    public void initData(){
+        fMgr = getSupportFragmentManager();
+        Boolean isFirst = SharedUtil.getHelpStatus(getApplicationContext());
+        int versionHelp = SharedUtil.getHelpCode(getApplicationContext());
+        int versionCurrent = 1;
+        try {
+            versionCurrent = PublicTools.getVersionCode(getApplicationContext());
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if(isFirst){
+            SharedUtil.saveHelpStatus(getApplicationContext(), false, versionCurrent);
+            initFragment();
+        }else{
+            if(versionHelp<versionCurrent){
+                SharedUtil.saveHelpStatus(getApplicationContext(), false, versionCurrent);
+                initFragment();
+            }else{
+                initTimerTask();
+            }
+        }
 
     }
 
@@ -123,30 +147,7 @@ public class WelcomeActivity extends BaseFragmentActivity {
 		
 	}
 
-    public void initData(){
-        fMgr = getSupportFragmentManager();
-		Boolean isFirst = SharedUtil.getHelpStatus(getApplicationContext());
-		int versionHelp = SharedUtil.getHelpCode(getApplicationContext());
-		int versionCurrent = 1;
-		try {
-			versionCurrent = PublicTools.getVersionCode(getApplicationContext());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(isFirst){
-			SharedUtil.saveHelpStatus(getApplicationContext(), false, versionCurrent);
-			initFragment();
-		}else{			
-			if(versionHelp<versionCurrent){
-				SharedUtil.saveHelpStatus(getApplicationContext(), false, versionCurrent);
-				initFragment();
-			}else{
-				initTimerTask();
-			}			
-		}
-		
-	}
+
 	
 	//µã»÷·µ»Ø°´Å¥
 	@Override

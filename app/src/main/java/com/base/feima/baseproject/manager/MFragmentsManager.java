@@ -1,4 +1,4 @@
-package com.base.feima.baseproject.util;
+package com.base.feima.baseproject.manager;
 
 
 import android.support.v4.app.Fragment;
