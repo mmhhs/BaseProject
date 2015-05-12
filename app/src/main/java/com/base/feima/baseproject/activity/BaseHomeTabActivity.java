@@ -61,6 +61,7 @@ public class BaseHomeTabActivity extends BaseFragmentActivity{
 
     @Override
     public void initView(){
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.base_ui_home_frame);
 		int count = fragments.length;
 		for (int i = 0; i < count; i++) {
 			/* 为每一个Tab按钮设置图标、文字和内容 */
