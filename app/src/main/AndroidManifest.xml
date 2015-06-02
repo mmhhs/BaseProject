@@ -24,6 +24,21 @@
         <activity android:name="com.widget.sample.SampleUltimateActivity"
             android:screenOrientation="portrait"
             ></activity>
+        <activity android:name="com.base.feima.baseproject.view.multilayer.PopActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            ></activity>
+        <activity android:name="com.base.feima.baseproject.view.chooseimages.ChooseImagesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            ></activity>
+        <activity android:name="com.base.feima.baseproject.view.chooseimages.ChooseImagesSampleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            ></activity>
     </application>
 
 

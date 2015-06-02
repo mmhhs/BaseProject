@@ -34,9 +34,14 @@
                 android:id="@+id/texttt"
                 android:layout_gravity="center_horizontal" />
 
+            <com.llkj.players.view.view.multilayer.MultilayerChooseView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sample_multilayerChooseView" />
+
+
         </LinearLayout>
     </ScrollView>
-
 
 
 </LinearLayout>

@@ -39,5 +39,14 @@
      <color name="base_put_on">#00000000</color>
      <color name="base_put_off">#40000000</color>
 
-    
+    <!-- 多图片选择 -->
+    <color name="choose_images_transparent">#e0000000</color>
+    <color name="choose_images_bg">#181818</color>
+    <color name="choose_images_title_bg">#22292c</color>
+    <color name="choose_images_done_on">#45c01a</color>
+    <color name="choose_images_done_off">#337523</color>
+    <color name="choose_images_text">#cfcfcf</color>
+    <color name="choose_images_line">#14191a</color>
+
+
 </resources>

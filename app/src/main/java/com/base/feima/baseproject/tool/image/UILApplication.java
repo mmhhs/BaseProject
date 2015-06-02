@@ -26,8 +26,9 @@ import android.os.StrictMode;
 import com.base.feima.baseproject.tool.ImageTools;
 import com.base.feima.baseproject.tool.image.UILConstants.Config;
 import com.base.feima.baseproject.util.BaseConstant;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
-import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
+import com.nostra13.universalimageloader.cache.disc.impl.TotalSizeLimitedDiscCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.FIFOLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -79,19 +80,23 @@ public class UILApplication extends Application {
 		final int cacheSize = 1024 * 1024 * memClass / 4;
 
 		configs = new
-				ImageLoaderConfiguration.Builder(context)
-				.memoryCacheExtraOptions(maxImageWidthForMemoryCache, maxImageHeightForMemoryCache)
-				.discCacheExtraOptions(maxImageWidthForMemoryCache, maxImageHeightForMemoryCache, CompressFormat.JPEG, 100, bitmapProcessor)												
-				.threadPoolSize(5)
-				.threadPriority(Thread.MIN_PRIORITY + 3)
-				.tasksProcessingOrder(QueueProcessingType.FIFO) // default
-				.denyCacheImageMultipleSizesInMemory()
-				.memoryCache(new UsingFreqLimitedMemoryCache(cacheSize)) // You can pass your own memory cache implementation
-				.discCache(new UnlimitedDiscCache(cacheDir)) // You can pass your own disc cache implementation
-				.imageDownloader(new BaseImageDownloader(context)) // default
-		        .imageDecoder(new BaseImageDecoder(false)) // default
-		        .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
-		        .writeDebugLogs()
+                ImageLoaderConfiguration.Builder(context)
+                .memoryCacheExtraOptions(maxImageWidthForMemoryCache, maxImageHeightForMemoryCache)
+                .discCacheExtraOptions(maxImageWidthForMemoryCache, maxImageHeightForMemoryCache, CompressFormat.JPEG, 100, bitmapProcessor)
+                .threadPoolSize(3)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .tasksProcessingOrder(QueueProcessingType.FIFO) // default
+                .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new FIFOLimitedMemoryCache(cacheSize)) // You can pass your own memory cache implementation
+                .discCache(new TotalSizeLimitedDiscCache(cacheDir, 100)) // You can pass your own disc cache implementation
+                .discCacheFileCount(100)
+                .discCacheSize(50 * 1024 * 1024)
+                        // default为使用HASHCODE对UIL进行加密命名， 还可以用MD5(new Md5FileNameGenerator())加密
+                .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .imageDownloader(new BaseImageDownloader(context)) // default
+                .imageDecoder(new BaseImageDecoder(false)) // default
+                .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
+                .writeDebugLogs()
 		        .build();
 		ImageLoader.getInstance().init(configs);
 	}
